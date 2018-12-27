@@ -15,7 +15,7 @@ use yii\data\ArrayDataProvider;
 
 class DocumentController extends Controller
 {
-    public $layout = 'tg_layout';
+    public $layout = 'tg_layout_master';
 
     private function _sendJSONAnswer($res){
         $response = Yii::$app->response;

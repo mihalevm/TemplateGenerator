@@ -30,6 +30,9 @@ class TgAsset extends AssetBundle
         '/css/vendor/froala/froala_style.min.css',
         '/css/vendor/treegrid/jquery.treegrid.css',
         '/css/vendor/smartwizard/smart_wizard.min.css',
+        '/css/vendor/smartwizard/smart_wizard_theme_dots.min.css',
+        '/css/vendor/smartwizard/smart_wizard_theme_arrows.min.css',
+        '/css/vendor/smartwizard/smart_wizard_theme_circles.min.css',
     ];
 
     public $js = [

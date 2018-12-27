@@ -13,3 +13,15 @@
 .doc_item input {
     width: 200px;
 }
+
+.tg-mastrer-doc-handler {
+    padding-top: 10%;
+}
+
+.tg-master-doc-name {
+    margin-bottom: 10px;
+}
+
+.tab-content {
+    padding: 2% !important;
+}

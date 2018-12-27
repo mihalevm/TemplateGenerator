@@ -13,6 +13,8 @@ var documentGen = function(){
 
             $.post(base_url+'/savedocument', {t:$('input[name=tid]').val(), v:JSON.stringify(masterData)}, function (key) {
                 DKey = key;
+                $('#master_doc_finish').hide();
+                $('#master_doc_preview').show();
             })
 
             return;

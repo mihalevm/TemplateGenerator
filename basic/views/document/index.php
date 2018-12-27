@@ -10,10 +10,9 @@ TgAsset::register($this);
 /* @var $this yii\web\View */
 
 $this->title = 'Создание документа';
-$this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = $DocName;
 ?>
 <?= Html::textInput('tid', $tid, ['hidden' => 'true']); ?>
+<div class="tg-master-doc-name">Название документа:&nbsp;<label><?php echo $DocName?></label></div>
 <div id="docMasterHolder">
     <ul>
 <?php
@@ -45,9 +44,15 @@ $this->params['breadcrumbs'][] = $DocName;
 </div>
 
 <script type="text/javascript">
+    var stepCount = <?php echo $StepCount?>;
     setTimeout(function () {
             $('#docMasterHolder').fadeIn();
             $('#docMasterHolder').smartWizard({
+                lang:{
+                    next: 'Следующий',
+                    previous: 'Предыдущий'
+                },
+                theme:'arrows',
                 toolbarSettings: {
                     toolbarPosition: 'bottom',
                     toolbarButtonPosition: 'right',
@@ -55,18 +60,30 @@ $this->params['breadcrumbs'][] = $DocName;
                     showPreviousButton: true,
                     toolbarExtraButtons: [
                         $('<button></button>').text('Закончить')
+                            .attr('id', 'master_doc_finish')
+                            .hide()
                             .addClass('btn btn-info')
                             .on('click', function(){
                                 documentGen.saveDocument();
                             }),
                         $('<button></button>').text('Предпросмотр')
+                            .attr('id', 'master_doc_preview')
+                            .hide()
                             .addClass('btn btn-warning')
                             .on('click', function(){
                                 documentGen.previewDocument();
                             }),
-
                     ]
                 },
+            });
+            $("#docMasterHolder").on("leaveStep", function(e, anchorObject, stepNumber, stepDirection) {
+                if (stepCount == stepNumber+2) {
+                    $('#master_doc_finish').show();
+                } else {
+                    $('#master_doc_finish').hide();
+                }
+
+                return;
             });
     }, 1000);
 </script>
