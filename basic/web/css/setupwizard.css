@@ -1,0 +1,23 @@
+#wizard-editor {
+    width: 100%;
+    height: 600px;
+}
+
+.tree {
+    margin-right: auto;
+    margin-left: auto;
+    width: 60%;
+}
+
+.tree tr {
+    line-height: 2;
+}
+
+.treegrid-expanded {
+    border-bottom: 1px dashed #e4e4e4;
+}
+
+.tg-wizard-tree-control {
+    cursor: pointer;
+    color: #337ab7;
+}

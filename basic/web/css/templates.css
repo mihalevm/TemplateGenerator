@@ -1,0 +1,17 @@
+.tg-templates-control {
+    padding-top: 10px;
+    padding-bottom: 40px;
+}
+
+.tg-templates-control input {
+    width: 400px;
+    margin-bottom: -55px;
+}
+
+.tg-templates-control button{
+    margin-left: 10px;
+}
+
+#editor-holder {
+    display: none;
+}

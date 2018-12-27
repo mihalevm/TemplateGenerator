@@ -1,0 +1,15 @@
+#docMasterHolder {
+    display: none;
+}
+
+.doc_item {
+    line-height: 2;
+}
+
+.doc_item label {
+    width: 200px;
+}
+
+.doc_item input {
+    width: 200px;
+}

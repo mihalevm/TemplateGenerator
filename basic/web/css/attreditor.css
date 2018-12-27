@@ -1,0 +1,34 @@
+.tg-attr-item-two:hover, .tg-attr-item-one:hover {
+    background-color: #ecf9ff !important;
+}
+
+.tg-attr-item-active {
+    background-color: #c9eaff !important;
+}
+
+.tg-edit-fields {
+
+}
+
+.tg-edit-fields label {
+    width: 140px;
+    line-height: 2;
+    text-align: left;
+}
+
+.tg-edit-fields input, .tg-edit-fields select {
+    line-height: 2;
+    text-align: right;
+    height: 32px;
+    width: 290px;
+}
+
+.tg-edit-control {
+    margin-top: -34px;
+    padding-bottom: 70px;
+    line-height: 2;
+}
+
+.tg-edit-control button{
+    margin-left: 15px;
+}
