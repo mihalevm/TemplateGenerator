@@ -38,7 +38,7 @@ class DocumentForm extends Model {
     }
 
     public function getMasterWizard ($tid){
-        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, t.ttype, a.title, a.adesc from tg_wizard w, tg_attributes a, tg_attributes_type t where w.attr=a.aid and a.atype = t.tid and w.tid=:tid order by step, pos")
+        $arr = $this->db_conn->createCommand("select w.step, w.pos, w.req, a.aname, t.ttype, a.title, a.adesc, a.test from tg_wizard w, tg_attributes a, tg_attributes_type t where w.attr=a.aid and a.atype = t.tid and w.tid=:tid order by step, pos")
             ->bindValue(':tid', $tid)
             ->queryAll();
 
@@ -77,7 +77,7 @@ class DocumentForm extends Model {
     }
 
     public function getDocumentVars ($dkey) {
-        $arr = $this->db_conn->createCommand("select a.aname, d.val from tg_attributes a, tg_documents d where a.aid=d.aid and d.dkey=:dkey")
+        $arr = $this->db_conn->createCommand("select a.aname, d.val, t.ttype from tg_attributes a, tg_documents d, tg_attributes_type t where a.atype=t.tid and a.aid=d.aid and d.dkey=:dkey")
             ->bindValue(':dkey', $dkey)
             ->queryAll();
 

@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\Button;
-
+//use yii\bootstrap\Button;
+use yii\jui\DatePicker;
 use app\assets\TgAsset;
 
 TgAsset::register($this);
@@ -23,16 +23,52 @@ $this->title = 'Создание документа';
     </ul>
     <div>
 <?php
-
-//Master
-
     for ($step = 1; $step <= $StepCount; $step++) {
         echo "<div id='step-".$step."' class=''>";
 
         foreach ($Master as $StepContent) {
             if (intval($StepContent['step']) == $step) {
+
+                $required = ($StepContent['req']?'required=""':'');
+
                 if ($StepContent['ttype'] == 'TINPUT'){
-                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="text" name="'.$StepContent['aname'].'"></span><br/>';
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="text" name="'.$StepContent['aname'].'" '.$required.' ></span><br/>';
+                }
+                if ($StepContent['ttype'] == 'TAREA'){
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><textarea name="'.$StepContent['aname'].'"  '.$required.' ></textarea></span><br/>';
+                }
+                if ($StepContent['ttype'] == 'TCHECK'){
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="checkbox" name="'.$StepContent['aname'].'" '.$required.' ></input></span><br/>';
+                }
+                if ($StepContent['ttype'] == 'TSELECT'){
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label>';
+                    foreach (explode(';',$StepContent['test']) as $it){
+                        if (strlen($it)>0) {
+                            echo '<p><input type="radio" name="' . $StepContent['aname'] . '" value="'.$it.'"  '.$required.' >' . $it . '</p>';
+                        }
+                    };
+                    echo '</input></span><br/>';
+                }
+                if ($StepContent['ttype'] == 'TCALENDAR'){
+                    $required = (strlen($required)>0?['required'=>'']:[]);
+
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label>';
+                    echo DatePicker::widget([
+                        'language' => 'ru',
+                        'dateFormat' => 'dd.MM.yyyy',
+                        'name' => $StepContent['aname'],
+                        'options' => $required,
+                    ]);
+                    echo '</span><br/>';
+                }
+                if ($StepContent['ttype'] == 'TDROPDOWN'){
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><select name="' . $StepContent['aname'] . '">';
+                    foreach (explode(';',$StepContent['test']) as $it){
+                        if (strlen($it)>0) {
+                            echo '<option value="'.$it.'">' . $it . '</option>';
+                        }
+                    };
+                    echo '</select></span><br/>';
                 }
             }
         }
@@ -64,7 +100,18 @@ $this->title = 'Создание документа';
                             .hide()
                             .addClass('btn btn-info')
                             .on('click', function(){
-                                documentGen.saveDocument();
+                                var ret = true;
+
+                                $('#step-'+<?=$StepCount?>).find('input').each(function (it,obj) {
+                                    if ( $(obj).prop('required') && $(obj).prop('type')=='text' && $(obj).val().length == 0){
+                                        $(obj).addClass('has-error');
+                                        ret = false;
+                                    }
+                                });
+
+                                if (ret){
+                                    documentGen.saveDocument();
+                                }
                             }),
                         $('<button></button>').text('Предпросмотр')
                             .attr('id', 'master_doc_preview')
@@ -83,7 +130,16 @@ $this->title = 'Создание документа';
                     $('#master_doc_finish').hide();
                 }
 
-                return;
+                var ret = true;
+
+                $('#step-'+(stepNumber+1)).find('input').each(function (it,obj) {
+                    if ( $(obj).prop('required') && $(obj).prop('type')=='text' && $(obj).val().length == 0){
+                        $(obj).addClass('has-error');
+                        ret = false;
+                    }
+                })
+
+                return ret;
             });
     }, 1000);
 </script>

@@ -48,7 +48,7 @@ var setupwizard = function(){
                 var val  = $('.treegrid-parent-'+node_item).find('select option:selected').val();
 
                 if (name && val) {
-                    $('.treegrid-parent-' + node_item + ':last').before('<tr class="treegrid-' + node_idx + ' treegrid-parent-' + node_item + '"><td>' + val + '</td><td>' + name + '</td><td><div class="tg-wizard-tree-control" title="Удалить переменную"><i class="fa fa-times" aria-hidden="true"/></div></td></tr>');
+                    $('.treegrid-parent-' + node_item + ':last').before('<tr class="treegrid-' + node_idx + ' treegrid-parent-' + node_item + '"><td>' + val + '</td><td>' + name + '</td><td><input type="checkbox" title="Обязательное поле"/></td><td><div class="tg-wizard-tree-control" title="Удалить переменную"><i class="fa fa-times" aria-hidden="true"/></div></td></tr>');
                     $('.treegrid-' + node_idx).find('.tg-wizard-tree-control').click(function (obj) {
                         $(obj.currentTarget).parent().parent().remove();
                     });
@@ -83,7 +83,8 @@ var setupwizard = function(){
                     if ( $(childNodes[child]).find('select').length == 0 ) {
                         root_is_empty = false;
                         var values = $(childNodes[child]).find('td');
-                        save_data.push({s:rootIdx, p:child+1, v:$(values[0]).text()});
+                        var req = ($(values[2]).find('input:first')[0].checked?1:0);
+                        save_data.push({s:rootIdx, p:child+1, v:$(values[0]).text(), r:req});
                     }
                 });
 
@@ -117,6 +118,10 @@ var setupwizard = function(){
 
                             $(selector[wizard[it].step-1]).val(wizard[it].aname);
                             $(bnt[wizard[it].step-1]).click();
+
+                            if(parseInt(wizard[it].req) == 1) {
+                                $($('.treegrid-' + (node_idx - 1)).find('input:checkbox:first')[0]).prop('checked', true);
+                            }
                         });
 
                         $('div#editor-holder').show();

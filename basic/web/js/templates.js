@@ -1,5 +1,6 @@
 var templates = function(){
     var base_url =  window.location.toString();
+    var new_img = null;
 
     function __getAllAttrs(str) {
         var re = /\{(\w+)\}/g;
@@ -20,6 +21,7 @@ var templates = function(){
             $('input[name=tname]').val($(obj).data('tname'));
         },
         editSelectedItem : function (add) {
+
             if ($('input[name=tid]').val() || add) {
                 $.post(base_url + '/getattr', {}, function (attr) {
                     $.FroalaEditor.DefineIcon('varadd', {NAME: 'cog'});
@@ -40,8 +42,31 @@ var templates = function(){
                         $('div#froala-editor').froalaEditor({
                             heightMin: 710,
                             heightMax: 710,
-                            toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo', '|', 'varadd']
+                            toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo', '|', 'varadd'],
+                            imageManagerLoadURL: base_url + '/imagegallery',
                         });
+
+                        $('div#froala-editor').on('froalaEditor.image.loaded', function (e, editor, $img) {
+                            new_img = $img[0];
+                        });
+
+                        $('div#froala-editor').on('froalaEditor.image.beforeUpload', function (e, editor, $img) {
+                                console.log('froalaEditor.image.beforeUpload');
+                                var fd = new FormData();
+                                fd.append('data', $img[0]);
+                                jQuery.ajax({
+                                    url: base_url + '/uploadimage',
+                                    data: fd,
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    method: 'POST',
+                                    success: function(src){
+                                        new_img.src = src;
+                                    }
+                                });
+                        });
+
                         $('div#editor-holder').show();
                         $('div#tmpl_list_holder').hide();
                         $('.breadcrumb').append('<li>' + $('input[name=tname]').val() + '</li>');

@@ -11,7 +11,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\DocumentForm;
-use yii\data\ArrayDataProvider;
+//use yii\data\ArrayDataProvider;
 
 class DocumentController extends Controller
 {
@@ -34,7 +34,6 @@ class DocumentController extends Controller
 
         return $response;
     }
-
 
     private function __getGUID(){
         mt_srand((double)microtime() * 10000);
@@ -101,6 +100,10 @@ class DocumentController extends Controller
             $attrs = $model->getDocumentVars($r->get('k'));
 
             foreach ($attrs as $attr_it){
+                if ($attr_it['ttype'] == 'TCHECK'){
+                    $attr_it['val'] = ($attr_it['val']?'Да':'Нет');
+                }
+
                 $html_template = str_replace('{'.$attr_it['aname'].'}', $attr_it['val'], $html_template);
             }
 

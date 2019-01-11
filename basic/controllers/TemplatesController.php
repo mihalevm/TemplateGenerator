@@ -120,6 +120,14 @@ class TemplatesController extends Controller
         $attrs = $model->getAttrsTestData($r->get('t'));
 
         foreach ($attrs as $attr_it){
+            if ($attr_it['ttype'] == 'TDROPDOWN' || $attr_it['ttype'] == 'TSELECT'){
+                $attr_it['test'] = (explode(';', $attr_it['test']))[0];
+            }
+
+            if ($attr_it['ttype'] == 'TCHECK'){
+                $attr_it['test'] = ($attr_it['test']?'Да':'Нет');
+            }
+
             $html_template = str_replace('{'.$attr_it['aname'].'}', $attr_it['test'], $html_template);
         }
 
@@ -133,6 +141,20 @@ class TemplatesController extends Controller
         $model = new TemplatesForm();
 
         $res = $model->deleteTemplate($r->post('t'));
+
+        return $this->_sendJSONAnswer($res);
+    }
+
+    public function actionUploadimage(){
+        $model = new TemplatesForm();
+        $res = $model->uploadImage($_FILES['data']);
+
+        return $this->_sendJSONAnswer($res);
+    }
+
+    public function actionImagegallery(){
+        $model = new TemplatesForm();
+        $res = $model->getGallery();
 
         return $this->_sendJSONAnswer($res);
     }

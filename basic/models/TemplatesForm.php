@@ -17,6 +17,18 @@ use yii\helpers\ArrayHelper;
 class TemplatesForm extends Model {
     protected $db_conn;
 
+    private function __getGUID(){
+        mt_srand((double)microtime() * 10000);
+        $charid = strtoupper(md5(uniqid(rand(), true)));
+        $uuid = substr($charid, 0, 8)
+            . substr($charid, 8, 4)
+            . substr($charid, 12, 4)
+            . substr($charid, 16, 4)
+            . substr($charid, 20, 12);
+
+        return $uuid;
+    }
+
     function __construct () {
         $this->db_conn = Yii::$app->db;
     }
@@ -84,7 +96,7 @@ class TemplatesForm extends Model {
         $tvars = $arr[0]['tvars'];
 
         if ($tvars) {
-            $arr = $this->db_conn->createCommand("select aname, test from tg_attributes where aid in (" . $tvars . ")")
+            $arr = $this->db_conn->createCommand("select a.aname, a.test, t.ttype from tg_attributes a, tg_attributes_type t where a.atype=t.tid and a.aid in (" . $tvars . ")")
                 ->queryAll();
         } else {
             $arr = [];
@@ -111,6 +123,27 @@ class TemplatesForm extends Model {
 
         return $arr;
 
+    }
+
+    public function uploadImage ($img) {
+        $new_src = strtolower($this->__getGUID());
+
+        $arr = $this->db_conn->createCommand("insert into tg_gallery (gkey) values (:gkey)")
+            ->bindValue(':gkey', $new_src)
+            ->execute();
+
+        $arr = $this->db_conn->getLastInsertID();
+
+        move_uploaded_file($img["tmp_name"], Yii::getAlias('@webroot').'\\assets\\img\\'.$new_src);
+
+        return '/assets/img/'.$new_src;
+    }
+
+    public function getGallery(){
+        $arr = $this->db_conn->createCommand("select concat('/assets/img/',gkey) as url, concat('/assets/img/',gkey) as thumb, 'all' as tag from tg_gallery")
+            ->queryAll();
+
+        return $arr;
     }
 
 //------------------------------------------------------

@@ -26,6 +26,7 @@ class TgAsset extends AssetBundle
         '/css/templates.css',
         '/css/setupwizard.css',
         '/css/document.css',
+        '/css/vendor/froala/froala_editor.pkgd.min.css',
         '/css/vendor/froala/froala_editor.css',
         '/css/vendor/froala/froala_style.min.css',
         '/css/vendor/treegrid/jquery.treegrid.css',
@@ -48,5 +49,7 @@ class TgAsset extends AssetBundle
 
     public $depends = [
         'yii\web\JqueryAsset',
+        'yii\jui\JuiAsset',
+//        'yii\bootstrap\BootstrapAsset',
     ];
 }

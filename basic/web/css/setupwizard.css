@@ -13,6 +13,11 @@
     line-height: 2;
 }
 
+.tree tr>td>input {
+    margin-right: 65px;
+}
+
+
 .treegrid-expanded {
     border-bottom: 1px dashed #e4e4e4;
 }

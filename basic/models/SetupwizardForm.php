@@ -71,10 +71,11 @@ class SetupwizardForm extends Model {
         $arr_wizard = json_decode($wizard);
 
         foreach ($arr_wizard as $wizard_item){
-            $this->db_conn->createCommand("insert into tg_wizard (tid, step, pos, attr) values (:tid, :step, :pos, :attr)")
+            $this->db_conn->createCommand("insert into tg_wizard (tid, step, pos, attr, req) values (:tid, :step, :pos, :attr, :req)")
                 ->bindValue(':tid', $tid)
                 ->bindValue(':step', $wizard_item->s)
                 ->bindValue(':pos', $wizard_item->p)
+                ->bindValue(':req', $wizard_item->r)
                 ->bindValue(':attr', $this->getAttributeIdbyKey($wizard_item->v))
                 ->execute();
 
@@ -86,7 +87,7 @@ class SetupwizardForm extends Model {
     }
 
     public function getWizard ($tid){
-        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, a.adesc from tg_wizard w, tg_attributes a where w.attr=a.aid and w.tid=:tid order by w.step, w.pos")
+        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, a.adesc, w.req from tg_wizard w, tg_attributes a where w.attr=a.aid and w.tid=:tid order by w.step, w.pos")
             ->bindValue(':tid', $tid)
             ->queryAll();
 
