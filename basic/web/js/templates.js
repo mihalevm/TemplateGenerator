@@ -44,6 +44,15 @@ var templates = function(){
                             heightMax: 710,
                             toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'inlineClass', 'clearFormatting', '|', 'emoticons', 'fontAwesome', 'specialCharacters', '-', 'paragraphFormat', 'lineHeight', 'paragraphStyle', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '|', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '-', 'insertHR', 'selectAll', 'getPDF', 'print', 'help', 'html', 'fullscreen', '|', 'undo', 'redo', '|', 'varadd'],
                             imageManagerLoadURL: base_url + '/imagegallery',
+                            language: 'ru',
+                            useClasses: false,
+                            lineHeights: {
+                                'По умолчанию':'0.75',
+                                'Одинарный':'1',
+                                '1.15': '1.15',
+                                '1.5': '1.5',
+                                'Двойной': '2'
+                            }
                         });
 
                         $('div#froala-editor').on('froalaEditor.image.loaded', function (e, editor, $img) {

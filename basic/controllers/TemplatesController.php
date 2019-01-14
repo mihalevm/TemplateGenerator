@@ -131,7 +131,7 @@ class TemplatesController extends Controller
             $html_template = str_replace('{'.$attr_it['aname'].'}', $attr_it['test'], $html_template);
         }
 
-        $mpdf->WriteHTML($html_template);
+        $mpdf->WriteHTML($html_template, \Mpdf\HTMLParserMode::HTML_BODY);
 
         return $this->_sendPDFDoc($mpdf->Output());
     }

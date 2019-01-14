@@ -41,6 +41,7 @@ AppAsset::register($this);
             ['label' => 'Атрибуты', 'url' => ['/attreditor']],
             ['label' => 'Шаблоны', 'url' => ['/templates']],
             ['label' => 'Мастер настройки', 'url' => ['/setupwizard']],
+            ['label' => 'Плагины', 'url' => ['/plugins']],
 /*
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]

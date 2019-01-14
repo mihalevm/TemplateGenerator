@@ -84,6 +84,32 @@ class DocumentForm extends Model {
         return $arr;
     }
 
+    public function getTemplateAttrs ($tid) {
+        $arr = $this->db_conn->createCommand("select tvars from tg_templates where tid=:tid")
+            ->bindValue(':tid', $tid)
+            ->queryAll();
+
+        $tvars = $arr[0]['tvars'];
+
+        if ($tvars) {
+            $arr = $this->db_conn->createCommand("select aname from tg_attributes where aid in (" . $tvars . ")")
+                ->queryAll();
+
+            $res = [];
+
+            foreach ($arr as $itattr){
+                $res[$itattr['aname']] = '';
+            }
+
+            $arr = $res;
+
+        } else {
+            $arr = [];
+        }
+
+        return $arr;
+    }
+
 
     /*
 

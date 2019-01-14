@@ -40,6 +40,7 @@ class TgAsset extends AssetBundle
         '/js/attreditor.js',
         '/js/vendor/froala/froala_editor.min.js',
         '/js/vendor/froala/froala_editor.pkgd.min.js',
+        '/js/vendor/froala/languages/ru.js',
         '/js/vendor/treegrid/jquery.treegrid.js',
         '/js/vendor/smartwizard/jquery.smartWizard.min.js',
         '/js/templates.js',

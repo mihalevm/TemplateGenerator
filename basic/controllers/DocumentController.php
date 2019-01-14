@@ -81,9 +81,23 @@ class DocumentController extends Controller
 
             $values = json_decode($r->post('v'));
 
+            $all_attrs = $model->getTemplateAttrs($r->post('t'));
+
             foreach ($values as $item){
                 $model->saveDocAttr($r->post('t'), $dkey, $item->name,  $item->val);
+                foreach ($all_attrs as $key => $itattr){
+                    if ($key == $item->name) {
+                        $all_attrs[$key] = 1;
+                    }
+                }
             }
+
+            foreach ($all_attrs as $key => $itattr){
+                if ($itattr != 1){
+                    $model->saveDocAttr($r->post('t'), $dkey, $key,  '-');
+                }
+            }
+
         }
 
         return $this->_sendJSONAnswer($dkey);
@@ -107,6 +121,8 @@ class DocumentController extends Controller
                 $html_template = str_replace('{'.$attr_it['aname'].'}', $attr_it['val'], $html_template);
             }
 
+            $stylesheet = file_get_contents(Yii::getAlias('@webroot').'/css/vendor/froala/froala_editor.css');
+            $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
             $mpdf->WriteHTML($html_template);
 
             return $this->_sendPDFDoc($mpdf->Output());
