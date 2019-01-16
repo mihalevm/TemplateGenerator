@@ -1,0 +1,64 @@
+.tg-plugin-list-holder {
+}
+
+.tg-plugin-list {
+    width: 100%;
+    border: 1px solid lightgrey;
+}
+
+.tg-plugin-list tr>th, .tg-plugin-egrul-script tr>th{
+    border: 1px solid #ebebeb;
+    padding:10px;
+    background-color: lightgrey;
+}
+
+.tg-plugin-list tr>td, .tg-plugin-egrul-script tr>td {
+    border: 1px solid #ebebeb;
+    padding:10px;
+}
+
+.tg-plugin-list-tools {
+    text-align: center;
+    color: #33a4df;
+}
+
+.tg-plugin-list-tools i {
+    cursor: pointer;
+}
+
+.tg-plugin-egrul-fields {
+    width: 100%;
+    margin: 40px;
+}
+
+.tg-plugin-egrul-fields tr>td {
+    padding: 5px;
+
+}
+
+.tg-plugin-egrul-fields tr>td>select {
+    width: 150px;
+}
+
+.tg-plugin-egrul-script {
+    display: none;
+    margin: 0 !important;
+    margin-top: 130px !important;
+}
+
+.tg-plugin-egrul-script tr>td{
+    cursor: pointer;
+}
+
+.tg-plugin-egrul-script tr:hover {
+    background-color: #33a4df;
+}
+
+.tg-plugin-egrul-script tr:hover>td>i {
+    color: lightgrey;
+}
+
+.tg-plugin-egrul-script tr>td>i {
+    color: #33a4df;
+    padding: 5px;
+}

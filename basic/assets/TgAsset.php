@@ -26,6 +26,7 @@ class TgAsset extends AssetBundle
         '/css/templates.css',
         '/css/setupwizard.css',
         '/css/document.css',
+        '/css/plugins.css',
         '/css/vendor/froala/froala_editor.pkgd.min.css',
         '/css/vendor/froala/froala_editor.css',
         '/css/vendor/froala/froala_style.min.css',
@@ -46,6 +47,7 @@ class TgAsset extends AssetBundle
         '/js/templates.js',
         '/js/setupwizard.js',
         '/js/document.js',
+        '/js/plugin_egrul.js',
     ];
 
     public $depends = [

@@ -29,6 +29,13 @@ $this->title = 'Создание документа';
         foreach ($Master as $StepContent) {
             if (intval($StepContent['step']) == $step) {
 
+                foreach ($plg_egrul as $script_item) {
+                    if ($script_item['inn'] == $StepContent['aname']){
+                        echo '<!-- Plugin EGRUL enabled at step-'.$step.'-->';
+                        break;
+                    }
+                }
+
                 $required = ($StepContent['req']?'required=""':'');
 
                 if ($StepContent['ttype'] == 'TINPUT'){

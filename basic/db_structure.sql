@@ -12,12 +12,10 @@
 
 
 -- Дамп структуры базы данных templategen
-DROP DATABASE IF EXISTS `templategen`;
 CREATE DATABASE IF NOT EXISTS `templategen` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `templategen`;
 
 -- Дамп структуры для таблица templategen.tg_attributes
-DROP TABLE IF EXISTS `tg_attributes`;
 CREATE TABLE IF NOT EXISTS `tg_attributes` (
   `aid` int(10) unsigned NOT NULL auto_increment COMMENT 'Идентификатор',
   `aname` varchar(50) NOT NULL COMMENT 'Ключ атрибута',
@@ -46,7 +44,6 @@ INSERT INTO `tg_attributes` (`aid`, `aname`, `atype`, `adesc`, `title`, `test`) 
 /*!40000 ALTER TABLE `tg_attributes` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_attributes_type
-DROP TABLE IF EXISTS `tg_attributes_type`;
 CREATE TABLE IF NOT EXISTS `tg_attributes_type` (
   `tid` int(11) NOT NULL auto_increment COMMENT 'Идентификатор',
   `tname` varchar(50) NOT NULL COMMENT 'Название типа',
@@ -67,7 +64,6 @@ INSERT INTO `tg_attributes_type` (`tid`, `tname`, `ttype`) VALUES
 /*!40000 ALTER TABLE `tg_attributes_type` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_documents
-DROP TABLE IF EXISTS `tg_documents`;
 CREATE TABLE IF NOT EXISTS `tg_documents` (
   `did` int(11) NOT NULL auto_increment COMMENT 'Идентификатор',
   `dkey` varchar(50) default '0' COMMENT 'Уникальный идентификатор документа',
@@ -78,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `tg_documents` (
   PRIMARY KEY  (`did`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Таблица сгенерированных документов';
 
--- Дамп данных таблицы templategen.tg_documents: ~165 rows (приблизительно)
+-- Дамп данных таблицы templategen.tg_documents: ~195 rows (приблизительно)
 /*!40000 ALTER TABLE `tg_documents` DISABLE KEYS */;
 INSERT INTO `tg_documents` (`did`, `dkey`, `tid`, `aid`, `val`, `cdate`) VALUES
 	(1, 'F5F1EDB6A98FDD3BBAF1319EA613097D', 1, 2, '1', '2018-12-26 14:45:09'),
@@ -253,11 +249,60 @@ INSERT INTO `tg_documents` (`did`, `dkey`, `tid`, `aid`, `val`, `cdate`) VALUES
 	(170, '877C86FBBE32FA235421373672D77E18', 7, 6, '1', '2019-01-11 16:04:28'),
 	(171, '877C86FBBE32FA235421373672D77E18', 7, 8, '10.01.2019', '2019-01-11 16:04:28'),
 	(172, '877C86FBBE32FA235421373672D77E18', 7, 7, '', '2019-01-11 16:04:28'),
-	(173, '877C86FBBE32FA235421373672D77E18', 7, 10, 'Наличный', '2019-01-11 16:04:28');
+	(173, '877C86FBBE32FA235421373672D77E18', 7, 10, 'Наличный', '2019-01-11 16:04:28'),
+	(174, '793A02735257BB20E18F17499DD533AE', 7, 4, 'fddsfdsf', '2019-01-14 12:26:43'),
+	(175, '793A02735257BB20E18F17499DD533AE', 7, 2, 'dsfdsfsdf', '2019-01-14 12:26:43'),
+	(176, '793A02735257BB20E18F17499DD533AE', 7, 5, 'fsdfsdfsd', '2019-01-14 12:26:43'),
+	(177, '793A02735257BB20E18F17499DD533AE', 7, 3, 'sdfsdfsd', '2019-01-14 12:26:43'),
+	(178, '793A02735257BB20E18F17499DD533AE', 7, 6, '1', '2019-01-14 12:26:43'),
+	(179, '793A02735257BB20E18F17499DD533AE', 7, 8, '03.01.2019', '2019-01-14 12:26:43'),
+	(180, '793A02735257BB20E18F17499DD533AE', 7, 7, '', '2019-01-14 12:26:43'),
+	(181, '793A02735257BB20E18F17499DD533AE', 7, 10, 'Наличный', '2019-01-14 12:26:43'),
+	(182, 'F40749AFEA274A3D54329AA1E5115D72', 7, 4, 'dfdfsdf', '2019-01-14 13:38:46'),
+	(183, 'F40749AFEA274A3D54329AA1E5115D72', 7, 2, 'sdfasdfasd', '2019-01-14 13:38:46'),
+	(184, 'F40749AFEA274A3D54329AA1E5115D72', 7, 5, 'sdfasdfa', '2019-01-14 13:38:46'),
+	(185, 'F40749AFEA274A3D54329AA1E5115D72', 7, 3, 'asdfasdf', '2019-01-14 13:38:46'),
+	(186, 'F40749AFEA274A3D54329AA1E5115D72', 7, 6, '1', '2019-01-14 13:38:46'),
+	(187, 'F40749AFEA274A3D54329AA1E5115D72', 7, 8, '03.01.2019', '2019-01-14 13:38:46'),
+	(188, 'F40749AFEA274A3D54329AA1E5115D72', 7, 7, 'asdfasdfdsaf', '2019-01-14 13:38:46'),
+	(189, 'F40749AFEA274A3D54329AA1E5115D72', 7, 10, 'Наличный', '2019-01-14 13:38:46'),
+	(190, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 4, 'asdfasd', '2019-01-14 13:39:23'),
+	(191, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 2, 'asdfasdfa', '2019-01-14 13:39:23'),
+	(192, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 5, 'fasdfasd', '2019-01-14 13:39:23'),
+	(193, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 3, 'dsafsadfa', '2019-01-14 13:39:23'),
+	(194, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 6, '1', '2019-01-14 13:39:23'),
+	(195, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 9, 'Юридическое лицо', '2019-01-14 13:39:23'),
+	(196, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 9, 'Физическое лицо', '2019-01-14 13:39:23'),
+	(197, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 8, '02.01.2019', '2019-01-14 13:39:23'),
+	(198, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 7, '', '2019-01-14 13:39:23'),
+	(199, '1C9D1941AB3AB66A3C9AD06C562AED82', 7, 10, 'Наличный', '2019-01-14 13:39:23'),
+	(200, '84D0C9C6D3DDA030C400E65331D65A67', 7, 4, 'asdfasd', '2019-01-14 14:16:59'),
+	(201, '84D0C9C6D3DDA030C400E65331D65A67', 7, 2, 'asdfasdfa', '2019-01-14 14:18:16'),
+	(202, '865FFB2AEFCD8F1B014F7CF81B08677A', 7, 4, 'asdfasd', '2019-01-14 14:26:33'),
+	(203, '079AEF333DAB69A557D3C0E7A7468A87', 7, 4, 'asdfasd', '2019-01-14 14:35:09'),
+	(204, '469F7C51154A62FD9067C4D955BD6C5A', 7, 4, 'asdfasd', '2019-01-14 14:36:26'),
+	(205, '9FFE74F26E0363354E791A582C14F817', 7, 4, 'asdfasd', '2019-01-14 14:38:24'),
+	(206, '9FFE74F26E0363354E791A582C14F817', 7, 2, 'asdfasdfa', '2019-01-14 14:38:47'),
+	(207, '9FFE74F26E0363354E791A582C14F817', 7, 5, 'fasdfasd', '2019-01-14 14:38:47'),
+	(208, '9FFE74F26E0363354E791A582C14F817', 7, 3, 'dsafsadfa', '2019-01-14 14:38:47'),
+	(209, '9FFE74F26E0363354E791A582C14F817', 7, 6, '1', '2019-01-14 14:38:47'),
+	(210, '9FFE74F26E0363354E791A582C14F817', 7, 9, 'Юридическое лицо', '2019-01-14 14:38:47'),
+	(211, '9FFE74F26E0363354E791A582C14F817', 7, 9, 'Физическое лицо', '2019-01-14 14:38:47'),
+	(212, '9FFE74F26E0363354E791A582C14F817', 7, 8, '02.01.2019', '2019-01-14 14:38:47'),
+	(213, '9FFE74F26E0363354E791A582C14F817', 7, 7, '', '2019-01-14 14:38:47'),
+	(214, '9FFE74F26E0363354E791A582C14F817', 7, 10, 'Наличный', '2019-01-14 14:38:47'),
+	(215, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 4, 'qqq', '2019-01-14 14:40:51'),
+	(216, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 2, 'www', '2019-01-14 14:40:51'),
+	(217, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 5, 'aaa', '2019-01-14 14:40:51'),
+	(218, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 3, 'sss', '2019-01-14 14:40:51'),
+	(219, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 6, '1', '2019-01-14 14:40:51'),
+	(220, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 8, '03.01.2019', '2019-01-14 14:40:51'),
+	(221, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 7, '', '2019-01-14 14:40:51'),
+	(222, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 10, 'Наличный', '2019-01-14 14:40:51'),
+	(223, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 9, '-', '2019-01-14 14:40:51');
 /*!40000 ALTER TABLE `tg_documents` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_gallery
-DROP TABLE IF EXISTS `tg_gallery`;
 CREATE TABLE IF NOT EXISTS `tg_gallery` (
   `gkey` varchar(50) default NULL COMMENT 'Идентификатор изображения'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица загруженных изображений';
@@ -268,8 +313,30 @@ INSERT INTO `tg_gallery` (`gkey`) VALUES
 	('6c6bf76898f8cc77ba88e56bea2c476b');
 /*!40000 ALTER TABLE `tg_gallery` ENABLE KEYS */;
 
+-- Дамп структуры для таблица templategen.tg_plugin_egrul
+CREATE TABLE IF NOT EXISTS `tg_plugin_egrul` (
+  `id` int(10) unsigned NOT NULL auto_increment COMMENT 'Уникальный идентификатор',
+  `tid` int(10) unsigned NOT NULL default '0' COMMENT 'Идентификатор шаблона',
+  `inn` int(10) unsigned NOT NULL default '0' COMMENT 'Ключевое поле для поиска. ИНН',
+  `oname` int(10) unsigned NOT NULL default '0' COMMENT 'Название организации',
+  `addr` int(10) unsigned NOT NULL default '0' COMMENT 'Адрес организации',
+  `status` int(10) unsigned NOT NULL default '0' COMMENT 'Занимаемая должность',
+  `ogrn` int(10) unsigned NOT NULL default '0' COMMENT 'ОГРН',
+  `cdata` int(10) unsigned NOT NULL default '0' COMMENT 'Дата регистрации организации',
+  `kpp` int(10) unsigned NOT NULL default '0' COMMENT 'КПП',
+  `otype` int(10) unsigned NOT NULL default '0' COMMENT 'Форма организации',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `unq_tid_inn` (`inn`,`tid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица плагина автозаполнения из ЕГРЮЛ';
+
+-- Дамп данных таблицы templategen.tg_plugin_egrul: 0 rows
+/*!40000 ALTER TABLE `tg_plugin_egrul` DISABLE KEYS */;
+INSERT INTO `tg_plugin_egrul` (`id`, `tid`, `inn`, `oname`, `addr`, `status`, `ogrn`, `cdata`, `kpp`, `otype`) VALUES
+	(3, 7, 2, 4, 6, 7, 0, 8, 0, 9),
+	(4, 7, 3, 4, 10, 6, 0, 8, 0, 9);
+/*!40000 ALTER TABLE `tg_plugin_egrul` ENABLE KEYS */;
+
 -- Дамп структуры для таблица templategen.tg_templates
-DROP TABLE IF EXISTS `tg_templates`;
 CREATE TABLE IF NOT EXISTS `tg_templates` (
   `tid` int(10) unsigned NOT NULL auto_increment COMMENT 'Идентификатор',
   `cdate` timestamp NULL default CURRENT_TIMESTAMP COMMENT 'Дата создания шаблона',
@@ -284,12 +351,11 @@ CREATE TABLE IF NOT EXISTS `tg_templates` (
 /*!40000 ALTER TABLE `tg_templates` DISABLE KEYS */;
 INSERT INTO `tg_templates` (`tid`, `cdate`, `edate`, `tname`, `tbody`, `tvars`) VALUES
 	(5, '2018-12-21 16:22:03', NULL, 'Новый шаблон', '<p>Новый текст...</p>', ''),
-	(7, '2018-12-26 15:48:01', NULL, 'Договор 14', '<p style="text-align: center;">Исковое заявление №234 от 29 декабря 2018 г.</p><p style="text-align: center;">аааа</p><p style="margin-left: 20px;">ФИО Ответчика {APP_NAME_DEF}</p><p style="margin-left: 20px;">ИНН Ответчика {APP_INN_DEF}</p><p style="margin-left: 20px;">ФИО Истца {APP_NAME_CLAIMANT}</p><p style="margin-left: 20px;">ИНН Истца {APP_INN_CLAIMANT}</p><p style="margin-left: 20px;">Описание продукта: {APP_TEXT_AREA}</p><p style="margin-left: 20px;">Тип контрагента: {APP_USER_TYPE}</p><p style="margin-left: 20px;">Тип оплаты: {APP_PAY_TYPE}</p><p style="margin-left: 20px;">Дата заключения договора: {APP_DATA_DOC}</p><table style="width: 97%; margin-left: calc(2%); margin-right: calc(0.999997%);"><tbody><tr><td style="width: 50%; vertical-align: middle;">С условиями договора согласен<br></td><td style="width: 50%; text-align: right;"><p style="margin-left: 20px;">{APP_CHECK_LICENSE}</p></td></tr></tbody></table><p><img src="/assets/img/6c6bf76898f8cc77ba88e56bea2c476b" style="width: 20px;" class="fr-fic fr-dib"></p><p><br></p>', '6,8,10,9,7,3,5,2,4'),
+	(7, '2018-12-26 15:48:01', NULL, 'Договор 14', '<p fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box; margin: 0px 0px 10px;">Исковое заявление №234 от 29 декабря 2018 г.</p><p fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box; margin: 0px 0px 10px;">аааа</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ФИО Ответчика {APP_NAME_DEF}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ИНН Ответчика {APP_INN_DEF}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ФИО Истца {APP_NAME_CLAIMANT}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ИНН Истца {APP_INN_CLAIMANT}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Описание продукта: {APP_TEXT_AREA}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Тип контрагента: {APP_USER_TYPE}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Тип оплаты: {APP_PAY_TYPE}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Дата заключения договора: {APP_DATA_DOC}</p><table fr-original-style="width: 97%; margin-left: calc(2%); margin-right: calc(0.999997%);" style="width: 97%; margin-left: calc(2%); margin-right: calc(0.999997%); box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50%; vertical-align: middle;" style="width: 50%; vertical-align: middle; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">С условиями договора согласен</td><td fr-original-style="width: 50%; text-align: right;" style="width: 50%; text-align: right; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);"><p fr-original-style="margin-left: 20px;" style="margin: 0px 0px 10px 20px; box-sizing: border-box;">{APP_CHECK_LICENSE}</p></td></tr></tbody></table><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><table fr-original-class="fr-alternate-rows" fr-original-style="width: 96%; margin-right: calc(2%); margin-left: calc(2%);" style="width: 96%; margin-right: calc(2%); margin-left: calc(2%); box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50%; text-align: right;" style="width: 50%; text-align: right; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Печать<br fr-original-style="" style="box-sizing: border-box;"></td><td fr-original-style="width: 50%; text-align: center;" style="width: 50%; text-align: center; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);"><img src="/assets/img/6c6bf76898f8cc77ba88e56bea2c476b" style="width: 42px; display: block; vertical-align: top; margin: 5px auto; text-align: center; box-sizing: border-box; border: 0px none; cursor: pointer; position: relative; max-width: 100%;" fr-original-style="width: 42px; display: block; vertical-align: top; margin: 5px auto; text-align: center;" fr-original-class="fr-draggable"></td></tr></tbody></table><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p>', '6,8,10,9,7,3,5,2,4'),
 	(10, '2018-12-27 10:14:35', NULL, 'Новый шаблон 11', '<p><br></p><p><br></p><p>Привет! Привет! Новый шаблон документа!!!</p><p>{APP_INN_DEF}</p>', '2');
 /*!40000 ALTER TABLE `tg_templates` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_wizard
-DROP TABLE IF EXISTS `tg_wizard`;
 CREATE TABLE IF NOT EXISTS `tg_wizard` (
   `wid` int(11) NOT NULL auto_increment COMMENT 'Идентификатор',
   `tid` int(11) default '0' COMMENT 'Идентификатор шаблона',

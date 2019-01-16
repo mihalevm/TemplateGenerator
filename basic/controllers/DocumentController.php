@@ -53,12 +53,13 @@ class DocumentController extends Controller
         $stepCount = 0;
         $masterWizard = [];
         $templateName = '';
+        $plg_egrul = [];
 
-//        if ( $r->post('t') ) {
         if ( $r->get('t') ) {
             $stepCount = $model->getTemplateCount(intval($r->get('t')));
             $masterWizard = $model->getMasterWizard(intval($r->get('t')));
             $templateName = $model->getTemplateName(intval($r->get('t')));
+            $plg_egrul = $model->getScriptForTemplate(intval($r->get('t')));
         };
 
         return $this->render('index',[
@@ -67,6 +68,7 @@ class DocumentController extends Controller
             'Master' => $masterWizard,
             'DocName' => $templateName,
             'tid' => $r->get('t'),
+            'plg_egrul' => $plg_egrul,
         ]);
     }
 
