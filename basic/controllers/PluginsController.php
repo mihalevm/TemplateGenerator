@@ -96,4 +96,16 @@ class PluginsController extends Controller
         return $this->_sendJSONAnswer($res);
     }
 
+    public function actionEgrulreq() {
+        $model = new PluginsForm();
+        $r = Yii::$app->request;
+        $res = [];
+
+        if ($r->post('k')){
+            $res = $model->EgrulRequest($r->post('k'));
+        }
+
+        return $this->_sendJSONAnswer($res);
+    }
+
 }

@@ -1,5 +1,5 @@
 var attreditor = function(){
-    var base_url =  window.location.toString();
+    var base_url =  window.location.origin+'/attreditor';
 
     function __newAttr(){
         if ($('input[name=aname]').val() && $('select[name=atype]').val()) {

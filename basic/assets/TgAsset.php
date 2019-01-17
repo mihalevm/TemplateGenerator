@@ -48,6 +48,7 @@ class TgAsset extends AssetBundle
         '/js/setupwizard.js',
         '/js/document.js',
         '/js/plugin_egrul.js',
+        '/js/plugin_client_egrul.js',
     ];
 
     public $depends = [

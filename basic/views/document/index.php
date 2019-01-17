@@ -21,31 +21,40 @@ $this->title = 'Создание документа';
     }
 ?>
     </ul>
-    <div>
+<div>
+    <script>
+        var plg_egrul = JSON.parse('<?php echo json_encode($plg_egrul) ?>');
+    </script>
 <?php
     for ($step = 1; $step <= $StepCount; $step++) {
         echo "<div id='step-".$step."' class=''>";
-
+        $plg_egrul_bnt = '';
         foreach ($Master as $StepContent) {
             if (intval($StepContent['step']) == $step) {
-
+                $plg_egrul_idx = 0;
                 foreach ($plg_egrul as $script_item) {
                     if ($script_item['inn'] == $StepContent['aname']){
-                        echo '<!-- Plugin EGRUL enabled at step-'.$step.'-->';
+                        $plg_egrul_bnt = '<button class="btn btn-primary disabled" onclick="plugin_client_egrul.autofill(plg_egrul['.$plg_egrul_idx.'], '.$step.', \''.$StepContent['aname'].'\')">Автозаполнение</button>';
                         break;
                     }
+                    $plg_egrul_idx++;
                 }
 
                 $required = ($StepContent['req']?'required=""':'');
 
                 if ($StepContent['ttype'] == 'TINPUT'){
-                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="text" name="'.$StepContent['aname'].'" '.$required.' ></span><br/>';
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="text" name="'.$StepContent['aname'].'" '.$required.' ></span>';
+                    echo $plg_egrul_bnt;
+                    echo '<br/>';
                 }
                 if ($StepContent['ttype'] == 'TAREA'){
-                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><textarea name="'.$StepContent['aname'].'"  '.$required.' ></textarea></span><br/>';
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><textarea name="'.$StepContent['aname'].'"  '.$required.' ></textarea></span>';
+                    echo $plg_egrul_bnt;
+                    echo '<br/>';
+
                 }
                 if ($StepContent['ttype'] == 'TCHECK'){
-                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="checkbox" name="'.$StepContent['aname'].'" '.$required.' ></input></span><br/>';
+                    echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="checkbox" name="'.$StepContent['aname'].'" '.$required.' ></input></span>';
                 }
                 if ($StepContent['ttype'] == 'TSELECT'){
                     echo '<span class="doc_item"><label>'.$StepContent['title'].'</label>';
@@ -55,6 +64,8 @@ $this->title = 'Создание документа';
                         }
                     };
                     echo '</input></span><br/>';
+                    echo $plg_egrul_bnt;
+                    echo '<br/>';
                 }
                 if ($StepContent['ttype'] == 'TCALENDAR'){
                     $required = (strlen($required)>0?['required'=>'']:[]);
@@ -75,9 +86,17 @@ $this->title = 'Создание документа';
                             echo '<option value="'.$it.'">' . $it . '</option>';
                         }
                     };
-                    echo '</select></span><br/>';
+                    echo '</select></span>';
+                    echo $plg_egrul_bnt;
+                    echo '<br/>';
                 }
             }
+
+            if ($plg_egrul_bnt) {
+                echo "<script>setTimeout(function () { $('input[name=\'".$StepContent['aname']."\']').keyup(function(e) { if($(e.currentTarget).val().length){ $('#step-".$step."').find('.btn-primary:first').removeClass('disabled') }else{ $('#step-".$step."').find('.btn-primary:first').addClass('disabled') }; });}, 1000)</script>";
+            }
+
+            $plg_egrul_bnt = '';
         }
 
         echo "</div>";

@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             return [
                 'class'      => $index&1 ? 'tg-attr-item-one':'tg-attr-item-two',
                 'data-tid'   => $model['tid'],
-                'data-tname'   => $model['tname'],
+                'data-tname' => $model['tname'],
                 'onclick'    => 'templates.setActiveItem(this);'
             ];
         },

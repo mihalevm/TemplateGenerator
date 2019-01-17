@@ -93,7 +93,8 @@ class TemplatesForm extends Model {
             ->bindValue(':tid', $tid)
             ->queryAll();
 
-        $tvars = $arr[0]['tvars'];
+        $tvars = str_replace(',,',',', $arr[0]['tvars']);
+
 
         if ($tvars) {
             $arr = $this->db_conn->createCommand("select a.aname, a.test, t.ttype from tg_attributes a, tg_attributes_type t where a.atype=t.tid and a.aid in (" . $tvars . ")")
