@@ -12,10 +12,12 @@
 
 
 -- Дамп структуры базы данных templategen
+DROP DATABASE IF EXISTS `templategen`;
 CREATE DATABASE IF NOT EXISTS `templategen` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `templategen`;
 
 -- Дамп структуры для таблица templategen.tg_attributes
+DROP TABLE IF EXISTS `tg_attributes`;
 CREATE TABLE IF NOT EXISTS `tg_attributes` (
   `aid` int(10) unsigned NOT NULL auto_increment COMMENT 'Идентификатор',
   `aname` varchar(50) NOT NULL COMMENT 'Ключ атрибута',
@@ -32,18 +34,30 @@ CREATE TABLE IF NOT EXISTS `tg_attributes` (
 -- Дамп данных таблицы templategen.tg_attributes: ~9 rows (приблизительно)
 /*!40000 ALTER TABLE `tg_attributes` DISABLE KEYS */;
 INSERT INTO `tg_attributes` (`aid`, `aname`, `atype`, `adesc`, `title`, `test`) VALUES
-	(2, 'APP_INN_DEF', 1, 'ИНН Ответчика', 'Инн ответчика', '222333111'),
-	(3, 'APP_INN_CLAIMANT', 1, 'ИНН Истца', 'ИНН Истца', '222333779'),
-	(4, 'APP_NAME_DEF', 1, 'Название ответчика', 'Название ответчика', 'Иванов Иванович'),
-	(5, 'APP_NAME_CLAIMANT', 1, 'Название истца', 'Название истца', 'Петров Петр'),
+	(2, 'DEF_INN', 1, 'ИНН Ответчика', 'Инн ответчика', '222333111'),
+	(3, 'CLM_INN', 1, 'ИНН Истца', 'ИНН Истца', '222333779'),
+	(4, 'DEF_ORG_NAME', 1, 'Название компании ответчика', 'Название организации', 'ООО Батон'),
+	(5, 'CLM_ORG_NAME', 1, 'Название компании', 'Название компании', 'ООО Колбаса'),
 	(6, 'APP_CHECK_LICENSE', 6, 'С условиями согласен', 'С условиями согласен', '1'),
-	(7, 'APP_TEXT_AREA', 5, 'Описание продукта', 'Описание продукта', 'Продукт колбаса'),
+	(7, 'APP_TEXT_AREA', 5, 'Условия соглашения', 'Условия соглашения', 'Колбаса и батон дружба на век.'),
 	(8, 'APP_DATA_DOC', 2, 'Дата заключения договора', 'Дата заключения договора', '23.01.2019'),
-	(9, 'APP_USER_TYPE', 4, 'Тип контрагента', 'Тип контрагента', 'Юридическое лицо;Физическое лицо;'),
-	(10, 'APP_PAY_TYPE', 3, 'Тип оплаты', 'Тип оплаты', 'Наличный;Безналичный;');
+	(9, 'DEF_TYPE', 3, 'Тип контрагента', 'Тип контрагента', 'Юридическое лицо;Физическое лицо;'),
+	(10, 'APP_PAY_TYPE', 3, 'Тип оплаты', 'Тип оплаты', 'Наличный;Безналичный;'),
+	(11, 'DEF_ADDR', 1, 'Адрес компании', 'Адрес', 'г. Новосибирск, ул. Попова, 34'),
+	(12, 'DEF_CDATE', 2, 'Дата регистрации', 'Дата регистрации', '23.01.2007'),
+	(13, 'DEF_KPP', 1, 'КПП', 'КПП', '232323232'),
+	(14, 'DEF_OGRN', 1, 'ОГРН', 'ОГРН', '233423423'),
+	(15, 'DEF_STATUS', 1, 'Статус,руководитель', 'Статус,руководитель', 'Управляющий Иванов Иван'),
+	(16, 'CLN_ADDR', 1, 'Адрес компании', 'Адрес компании', '	г. Москва, ул. Восточная, 100'),
+	(17, 'CLM_CDATE', 2, '	Дата регистрации', '	Дата регистрации', '10.02.2015'),
+	(18, 'CLM_KPP', 1, 'КПП', 'КПП', '77686787686'),
+	(19, 'CLM_OGRN', 1, 'ОГРН', 'ОГРН', '5467658568'),
+	(20, 'CLM_TYPE', 3, 'Тип контрагента', 'Тип контрагента', 'Юридическое лицо;Физическое лицо;'),
+	(21, 'CLM_STATUS', 1, 'Должность, руководитель', 'Должность, руководитель', 'Индивидуальный предприниматель Петр Петров');
 /*!40000 ALTER TABLE `tg_attributes` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_attributes_type
+DROP TABLE IF EXISTS `tg_attributes_type`;
 CREATE TABLE IF NOT EXISTS `tg_attributes_type` (
   `tid` int(11) NOT NULL auto_increment COMMENT 'Идентификатор',
   `tname` varchar(50) NOT NULL COMMENT 'Название типа',
@@ -64,6 +78,7 @@ INSERT INTO `tg_attributes_type` (`tid`, `tname`, `ttype`) VALUES
 /*!40000 ALTER TABLE `tg_attributes_type` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_documents
+DROP TABLE IF EXISTS `tg_documents`;
 CREATE TABLE IF NOT EXISTS `tg_documents` (
   `did` int(11) NOT NULL auto_increment COMMENT 'Идентификатор',
   `dkey` varchar(50) default '0' COMMENT 'Уникальный идентификатор документа',
@@ -74,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `tg_documents` (
   PRIMARY KEY  (`did`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Таблица сгенерированных документов';
 
--- Дамп данных таблицы templategen.tg_documents: ~195 rows (приблизительно)
+-- Дамп данных таблицы templategen.tg_documents: ~223 rows (приблизительно)
 /*!40000 ALTER TABLE `tg_documents` DISABLE KEYS */;
 INSERT INTO `tg_documents` (`did`, `dkey`, `tid`, `aid`, `val`, `cdate`) VALUES
 	(1, 'F5F1EDB6A98FDD3BBAF1319EA613097D', 1, 2, '1', '2018-12-26 14:45:09'),
@@ -94,7 +109,6 @@ INSERT INTO `tg_documents` (`did`, `dkey`, `tid`, `aid`, `val`, `cdate`) VALUES
 	(15, 'AD3EEA8084FB9A68B9A6CF49A388A418', 7, 2, '1111111111', '2018-12-26 15:51:42'),
 	(16, 'AD3EEA8084FB9A68B9A6CF49A388A418', 7, 5, 'Сидоров Сидор', '2018-12-26 15:51:42'),
 	(17, 'AD3EEA8084FB9A68B9A6CF49A388A418', 7, 3, '222222', '2018-12-26 15:51:42'),
-	(18, '6F19CC794039BF28926D88F35933BF20', 10, 2, '23324234234', '2018-12-27 10:16:28'),
 	(19, '9EE13B81998A62E89724E282B852AF53', 7, 4, 'ООО Колбаса', '2018-12-27 10:40:37'),
 	(20, '9EE13B81998A62E89724E282B852AF53', 7, 2, '0000000', '2018-12-27 10:40:37'),
 	(21, '9EE13B81998A62E89724E282B852AF53', 7, 5, 'ООО Батон', '2018-12-27 10:40:37'),
@@ -299,10 +313,65 @@ INSERT INTO `tg_documents` (`did`, `dkey`, `tid`, `aid`, `val`, `cdate`) VALUES
 	(220, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 8, '03.01.2019', '2019-01-14 14:40:51'),
 	(221, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 7, '', '2019-01-14 14:40:51'),
 	(222, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 10, 'Наличный', '2019-01-14 14:40:51'),
-	(223, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 9, '-', '2019-01-14 14:40:51');
+	(223, '7BE1C3E9A5CF907316C740E53D5F6A72', 7, 9, '-', '2019-01-14 14:40:51'),
+	(224, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 2, '7706107510', '2019-01-17 14:30:26'),
+	(225, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 4, 'ПАО "НК "РОСНЕФТЬ"', '2019-01-17 14:30:26'),
+	(226, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 15, 'Главный Исполнительный Директор: Сечин Игорь Иванович', '2019-01-17 14:30:26'),
+	(227, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 11, '115035, МОСКВА ГОРОД, НАБЕРЕЖНАЯ СОФИЙСКАЯ,  26/1', '2019-01-17 14:30:26'),
+	(228, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 13, '770601001', '2019-01-17 14:30:26'),
+	(229, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 14, '1027700043502', '2019-01-17 14:30:26'),
+	(230, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 12, '19.07.2002', '2019-01-17 14:30:26'),
+	(231, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 3, '5504036333', '2019-01-17 14:30:26'),
+	(232, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 5, 'ПАО "ГАЗПРОМ НЕФТЬ"', '2019-01-17 14:30:26'),
+	(233, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 21, 'Генеральный Директор: Дюков Александр Валерьевич', '2019-01-17 14:30:26'),
+	(234, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 16, '190000, САНКТ-ПЕТЕРБУРГ ГОРОД, УЛИЦА ПОЧТАМТСКАЯ, ДОМ 3-5, ЛИТЕР А, Ч.ПОМ. 1Н КАБ. 2401', '2019-01-17 14:30:26'),
+	(235, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 18, '783801001', '2019-01-17 14:30:26'),
+	(236, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 19, '1025501701686', '2019-01-17 14:30:26'),
+	(237, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 17, '21.08.2002', '2019-01-17 14:30:26'),
+	(238, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 6, '1', '2019-01-17 14:30:26'),
+	(239, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 7, 'Продаю, покупаю, нефть качаю.', '2019-01-17 14:30:26'),
+	(240, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 9, 'Юридическое лицо', '2019-01-17 14:30:26'),
+	(241, '6965E628CF1C87F8AC9E1C8062CE35BB', 7, 20, 'Юридическое лицо', '2019-01-17 14:30:26'),
+	(242, 'DB55D9EAABB359124D1386024EADB46B', 7, 2, '7736050003', '2019-01-17 14:56:56'),
+	(243, 'DB55D9EAABB359124D1386024EADB46B', 7, 4, 'ПАО "ГАЗПРОМ"', '2019-01-17 14:56:56'),
+	(244, 'DB55D9EAABB359124D1386024EADB46B', 7, 15, 'Председатель Правления: Миллер Алексей Борисович', '2019-01-17 14:56:56'),
+	(245, 'DB55D9EAABB359124D1386024EADB46B', 7, 11, '117420, МОСКВА ГОРОД, УЛИЦА НАМЁТКИНА, ДОМ 16', '2019-01-17 14:56:56'),
+	(246, 'DB55D9EAABB359124D1386024EADB46B', 7, 13, '772801001', '2019-01-17 14:56:56'),
+	(247, 'DB55D9EAABB359124D1386024EADB46B', 7, 14, '1027700070518', '2019-01-17 14:56:56'),
+	(248, 'DB55D9EAABB359124D1386024EADB46B', 7, 12, '02.08.2002', '2019-01-17 14:56:56'),
+	(249, 'DB55D9EAABB359124D1386024EADB46B', 7, 3, '7706107510', '2019-01-17 14:56:56'),
+	(250, 'DB55D9EAABB359124D1386024EADB46B', 7, 5, 'ПАО "НК "РОСНЕФТЬ"', '2019-01-17 14:56:56'),
+	(251, 'DB55D9EAABB359124D1386024EADB46B', 7, 21, 'Главный Исполнительный Директор: Сечин Игорь Иванович', '2019-01-17 14:56:56'),
+	(252, 'DB55D9EAABB359124D1386024EADB46B', 7, 16, '115035, МОСКВА ГОРОД, НАБЕРЕЖНАЯ СОФИЙСКАЯ,  26/1', '2019-01-17 14:56:56'),
+	(253, 'DB55D9EAABB359124D1386024EADB46B', 7, 18, '770601001', '2019-01-17 14:56:56'),
+	(254, 'DB55D9EAABB359124D1386024EADB46B', 7, 19, '1027700043502', '2019-01-17 14:56:56'),
+	(255, 'DB55D9EAABB359124D1386024EADB46B', 7, 17, '19.07.2002', '2019-01-17 14:56:56'),
+	(256, 'DB55D9EAABB359124D1386024EADB46B', 7, 6, '1', '2019-01-17 14:56:56'),
+	(257, 'DB55D9EAABB359124D1386024EADB46B', 7, 7, '', '2019-01-17 14:56:56'),
+	(258, 'DB55D9EAABB359124D1386024EADB46B', 7, 9, 'Юридическое лицо', '2019-01-17 14:56:56'),
+	(259, 'DB55D9EAABB359124D1386024EADB46B', 7, 20, 'Юридическое лицо', '2019-01-17 14:56:56'),
+	(260, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 2, '7736050003', '2019-01-17 14:57:08'),
+	(261, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 4, 'ПАО "ГАЗПРОМ"', '2019-01-17 14:57:08'),
+	(262, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 15, 'Председатель Правления: Миллер Алексей Борисович', '2019-01-17 14:57:08'),
+	(263, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 11, '117420, МОСКВА ГОРОД, УЛИЦА НАМЁТКИНА, ДОМ 16', '2019-01-17 14:57:08'),
+	(264, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 13, '772801001', '2019-01-17 14:57:08'),
+	(265, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 14, '1027700070518', '2019-01-17 14:57:08'),
+	(266, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 12, '02.08.2002', '2019-01-17 14:57:08'),
+	(267, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 3, '7706107510', '2019-01-17 14:57:08'),
+	(268, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 5, 'ПАО "НК "РОСНЕФТЬ"', '2019-01-17 14:57:08'),
+	(269, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 21, 'Главный Исполнительный Директор: Сечин Игорь Иванович', '2019-01-17 14:57:08'),
+	(270, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 16, '115035, МОСКВА ГОРОД, НАБЕРЕЖНАЯ СОФИЙСКАЯ,  26/1', '2019-01-17 14:57:08'),
+	(271, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 18, '770601001', '2019-01-17 14:57:08'),
+	(272, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 19, '1027700043502', '2019-01-17 14:57:08'),
+	(273, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 17, '19.07.2002', '2019-01-17 14:57:08'),
+	(274, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 6, '0', '2019-01-17 14:57:08'),
+	(275, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 7, '', '2019-01-17 14:57:08'),
+	(276, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 9, 'Юридическое лицо', '2019-01-17 14:57:08'),
+	(277, '3F91018B3E77DE48EB47AA14FDFA7CEA', 7, 20, 'Юридическое лицо', '2019-01-17 14:57:08');
 /*!40000 ALTER TABLE `tg_documents` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_gallery
+DROP TABLE IF EXISTS `tg_gallery`;
 CREATE TABLE IF NOT EXISTS `tg_gallery` (
   `gkey` varchar(50) default NULL COMMENT 'Идентификатор изображения'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица загруженных изображений';
@@ -314,6 +383,7 @@ INSERT INTO `tg_gallery` (`gkey`) VALUES
 /*!40000 ALTER TABLE `tg_gallery` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_plugin_egrul
+DROP TABLE IF EXISTS `tg_plugin_egrul`;
 CREATE TABLE IF NOT EXISTS `tg_plugin_egrul` (
   `id` int(10) unsigned NOT NULL auto_increment COMMENT 'Уникальный идентификатор',
   `tid` int(10) unsigned NOT NULL default '0' COMMENT 'Идентификатор шаблона',
@@ -329,14 +399,15 @@ CREATE TABLE IF NOT EXISTS `tg_plugin_egrul` (
   UNIQUE KEY `unq_tid_inn` (`inn`,`tid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Таблица плагина автозаполнения из ЕГРЮЛ';
 
--- Дамп данных таблицы templategen.tg_plugin_egrul: 0 rows
+-- Дамп данных таблицы templategen.tg_plugin_egrul: 2 rows
 /*!40000 ALTER TABLE `tg_plugin_egrul` DISABLE KEYS */;
 INSERT INTO `tg_plugin_egrul` (`id`, `tid`, `inn`, `oname`, `addr`, `status`, `ogrn`, `cdata`, `kpp`, `otype`) VALUES
-	(3, 7, 2, 4, 6, 7, 0, 8, 0, 9),
-	(4, 7, 3, 4, 10, 6, 0, 8, 0, 9);
+	(6, 7, 3, 5, 16, 21, 19, 17, 18, 20),
+	(5, 7, 2, 4, 11, 15, 14, 12, 13, 9);
 /*!40000 ALTER TABLE `tg_plugin_egrul` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_templates
+DROP TABLE IF EXISTS `tg_templates`;
 CREATE TABLE IF NOT EXISTS `tg_templates` (
   `tid` int(10) unsigned NOT NULL auto_increment COMMENT 'Идентификатор',
   `cdate` timestamp NULL default CURRENT_TIMESTAMP COMMENT 'Дата создания шаблона',
@@ -350,12 +421,11 @@ CREATE TABLE IF NOT EXISTS `tg_templates` (
 -- Дамп данных таблицы templategen.tg_templates: ~3 rows (приблизительно)
 /*!40000 ALTER TABLE `tg_templates` DISABLE KEYS */;
 INSERT INTO `tg_templates` (`tid`, `cdate`, `edate`, `tname`, `tbody`, `tvars`) VALUES
-	(5, '2018-12-21 16:22:03', NULL, 'Новый шаблон', '<p>Новый текст...</p>', ''),
-	(7, '2018-12-26 15:48:01', NULL, 'Договор 14', '<p fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box; margin: 0px 0px 10px;">Исковое заявление №234 от 29 декабря 2018 г.</p><p fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box; margin: 0px 0px 10px;">аааа</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ФИО Ответчика {APP_NAME_DEF}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ИНН Ответчика {APP_INN_DEF}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ФИО Истца {APP_NAME_CLAIMANT}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">ИНН Истца {APP_INN_CLAIMANT}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Описание продукта: {APP_TEXT_AREA}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Тип контрагента: {APP_USER_TYPE}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Тип оплаты: {APP_PAY_TYPE}</p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;">Дата заключения договора: {APP_DATA_DOC}</p><table fr-original-style="width: 97%; margin-left: calc(2%); margin-right: calc(0.999997%);" style="width: 97%; margin-left: calc(2%); margin-right: calc(0.999997%); box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50%; vertical-align: middle;" style="width: 50%; vertical-align: middle; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">С условиями договора согласен</td><td fr-original-style="width: 50%; text-align: right;" style="width: 50%; text-align: right; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);"><p fr-original-style="margin-left: 20px;" style="margin: 0px 0px 10px 20px; box-sizing: border-box;">{APP_CHECK_LICENSE}</p></td></tr></tbody></table><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><table fr-original-class="fr-alternate-rows" fr-original-style="width: 96%; margin-right: calc(2%); margin-left: calc(2%);" style="width: 96%; margin-right: calc(2%); margin-left: calc(2%); box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50%; text-align: right;" style="width: 50%; text-align: right; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Печать<br fr-original-style="" style="box-sizing: border-box;"></td><td fr-original-style="width: 50%; text-align: center;" style="width: 50%; text-align: center; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);"><img src="/assets/img/6c6bf76898f8cc77ba88e56bea2c476b" style="width: 42px; display: block; vertical-align: top; margin: 5px auto; text-align: center; box-sizing: border-box; border: 0px none; cursor: pointer; position: relative; max-width: 100%;" fr-original-style="width: 42px; display: block; vertical-align: top; margin: 5px auto; text-align: center;" fr-original-class="fr-draggable"></td></tr></tbody></table><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p>', '6,8,10,9,7,3,5,2,4'),
-	(10, '2018-12-27 10:14:35', NULL, 'Новый шаблон 11', '<p><br></p><p><br></p><p>Привет! Привет! Новый шаблон документа!!!</p><p>{APP_INN_DEF}</p>', '2');
+	(7, '2018-12-26 15:48:01', NULL, 'Лицензионное соглашение', '<p fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box; margin: 0px 0px 10px;">Лицензионное соглашение №1 от 29 декабря 2018 г.</p><p fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><p fr-original-style="margin-left: 20px; line-height: 0.75;" style="margin: 0px 0px 10px 20px; line-height: 0.75; box-sizing: border-box;"><br fr-original-style="" style="box-sizing: border-box;"></p><table fr-original-style="width: 100%;" style="width: 100%; box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Инн первой компании</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_INN}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Название первой компании</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_ORG_NAME}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Адрес компании</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_ADDR}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Дата регистрации</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_CDATE}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">КПП</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_KPP}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">ОГРН</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_OGRN}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Должность, руководитель</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_STATUS}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Тип контрагента</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{DEF_TYPE}</td></tr></tbody></table><hr fr-original-style="" style="height: 0px; box-sizing: content-box; margin-top: 20px; margin-bottom: 20px; border-color: rgb(238, 238, 238) currentcolor currentcolor; border-style: solid none none; border-width: 1px 0px 0px; border-image: none 100% / 1 / 0 stretch; clear: both; -moz-user-select: none; page-break-after: always;"><table fr-original-style="width: 100%;" style="width: 100%; box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Инн второй компании</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_INN}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Название второй компании</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_ORG_NAME}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Адрес компании</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLN_ADDR}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Дата регистрации</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_CDATE}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">КПП</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_KPP}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">ОГРН</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_OGRN}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Должность, руководитель</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_STATUS}</td></tr><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Тип контрагента</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{CLM_TYPE}</td></tr></tbody></table><hr fr-original-style="" style="height: 0px; box-sizing: content-box; margin-top: 20px; margin-bottom: 20px; border-color: rgb(238, 238, 238) currentcolor currentcolor; border-style: solid none none; border-width: 1px 0px 0px; border-image: none 100% / 1 / 0 stretch; clear: both; -moz-user-select: none; page-break-after: always;"><table fr-original-style="width: 100%;" style="width: 100%; box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Условия соглашения</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{APP_TEXT_AREA}</td></tr></tbody></table><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><table fr-original-style="width: 100%;" style="width: 100%; box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">С условиями согласен</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">{APP_CHECK_LICENSE}</td></tr></tbody></table><p fr-original-style="" style="box-sizing: border-box; margin: 0px 0px 10px;"><br fr-original-style="" style="box-sizing: border-box;"></p><table fr-original-style="width: 100%;" style="width: 100%; box-sizing: border-box; border-spacing: 0px; background-color: transparent; border: 0px none; border-collapse: collapse; empty-cells: show; max-width: 100%;"><tbody fr-original-style="" style="box-sizing: border-box;"><tr fr-original-style="" style="box-sizing: border-box; -moz-user-select: none;"><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);">Печать</td><td fr-original-style="width: 50.0000%;" style="width: 50%; box-sizing: border-box; padding: 0px; min-width: 5px; -moz-user-select: text; border: 1px solid rgb(221, 221, 221);"><div fr-original-style="text-align: center;" style="text-align: center; box-sizing: border-box;"><img src="/assets/img/6c6bf76898f8cc77ba88e56bea2c476b" style="width: 42px; display: block; vertical-align: top; margin: 5px auto; text-align: center; box-sizing: border-box; border: 0px none; cursor: pointer; position: relative; max-width: 100%;" fr-original-style="width: 42px; display: block; vertical-align: top; margin: 5px auto; text-align: center;" fr-original-class="fr-draggable"></div></td></tr></tbody></table>', '6,7,20,21,19,18,17,16,5,3,9,15,14,13,12,11,4,2');
 /*!40000 ALTER TABLE `tg_templates` ENABLE KEYS */;
 
 -- Дамп структуры для таблица templategen.tg_wizard
+DROP TABLE IF EXISTS `tg_wizard`;
 CREATE TABLE IF NOT EXISTS `tg_wizard` (
   `wid` int(11) NOT NULL auto_increment COMMENT 'Идентификатор',
   `tid` int(11) default '0' COMMENT 'Идентификатор шаблона',
@@ -376,16 +446,24 @@ INSERT INTO `tg_wizard` (`wid`, `tid`, `step`, `pos`, `attr`, `req`) VALUES
 	(31, 6, 2, 1, 5, 0),
 	(30, 6, 1, 2, 2, 0),
 	(29, 6, 1, 1, 4, 0),
-	(110, 7, 3, 5, 10, 0),
-	(109, 7, 3, 4, 8, 1),
-	(108, 7, 3, 3, 9, 0),
-	(107, 7, 3, 2, 6, 0),
-	(37, 10, 1, 1, 2, 0),
-	(106, 7, 3, 1, 7, 0),
-	(105, 7, 2, 2, 3, 0),
-	(104, 7, 2, 1, 5, 0),
-	(103, 7, 1, 2, 2, 0),
-	(102, 7, 1, 1, 4, 1);
+	(184, 7, 3, 2, 6, 0),
+	(183, 7, 3, 1, 7, 0),
+	(182, 7, 2, 8, 17, 0),
+	(181, 7, 2, 7, 19, 1),
+	(180, 7, 2, 6, 18, 1),
+	(179, 7, 2, 5, 20, 0),
+	(178, 7, 2, 4, 16, 1),
+	(177, 7, 2, 3, 21, 1),
+	(176, 7, 2, 2, 5, 1),
+	(175, 7, 2, 1, 3, 1),
+	(174, 7, 1, 8, 12, 0),
+	(173, 7, 1, 7, 14, 1),
+	(172, 7, 1, 6, 13, 1),
+	(171, 7, 1, 5, 9, 0),
+	(170, 7, 1, 4, 11, 1),
+	(169, 7, 1, 3, 15, 1),
+	(168, 7, 1, 2, 4, 1),
+	(167, 7, 1, 1, 2, 1);
 /*!40000 ALTER TABLE `tg_wizard` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
