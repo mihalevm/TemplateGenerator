@@ -39,6 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]);
     ?>
+    <div> </div>
+    <?php
+    echo Button::widget([
+        'label' => 'Добавить новый',
+        'options' => [
+            'id'            => 'new_prms',
+            'class'         => 'btn-success grid-button pull-right',
+            'onclick'       => 'plugin_egrul.newScript()',
+            'aria-disabled' => 'true',
+        ],
+    ]);
+    ?>
 
     <table class="tg-plugin-egrul-script tg-plugin-egrul-fields"></table>
 </div>

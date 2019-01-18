@@ -84,5 +84,15 @@ class AttreditorController extends Controller
         return $this->_sendJSONAnswer(json_encode($status));
     }
 
+    public  function actionDeleteattr() {
+        $model = new AttreditorForm();
+        $r = Yii::$app->request;
+        $res = 0;
 
+        if ( null !== $r->post('a') ) {
+            $res = $model->deleteAttribute($r->post('a'));
+        }
+
+        return $this->_sendJSONAnswer($res);
+    }
 }

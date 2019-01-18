@@ -89,6 +89,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'test',
                 'label'=>'Тестовое значение',
             ],
+            [
+                'label' => 'Действие',
+                'format' => 'raw',
+                'value' => function($data){
+                    return '<div class="tg-attr-tools" onclick="attreditor.deleteAttr('.$data['aid'].')"><i class="fa fa-times" aria-hidden="true"></i></div>';
+                }
+            ],
         ],
     ]);
     Pjax::end();

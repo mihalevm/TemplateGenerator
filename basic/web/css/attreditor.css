@@ -32,3 +32,10 @@
 .tg-edit-control button{
     margin-left: 15px;
 }
+
+.tg-attr-tools {
+    width: 100%;
+    text-align: center;
+    color: #0b58a2;
+    cursor: pointer;
+}

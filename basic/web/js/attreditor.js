@@ -10,8 +10,8 @@ var attreditor = function(){
                 ti: $('input[name=atitle]').val(),
                 te: $('input[name=atest]').val(),
             }, function (data) {
-                data = JSON.parse(data);
-                console.log(data.status);
+                // data = JSON.parse(data);
+                // console.log(data.status);
                 $.pjax.reload({container:"#attr_list",timeout:2e3});
             });
         }
@@ -27,9 +27,7 @@ var attreditor = function(){
                 ti: $('input[name=atitle]').val(),
                 te: $('input[name=atest]').val(),
             }, function (data) {
-                data = JSON.parse(data);
-                console.log(data.status);
-                $.pjax.reload({container:"#attr_list",timeout:2e3})
+                $.pjax.reload({container:'#attr_list',timeout:2e3});
             });
         }
     }
@@ -63,6 +61,16 @@ var attreditor = function(){
             $('input[name=atest]').val($(obj).data('test'));
             $('input[name=aid]').val($(obj).data('aid'));
 
+        },
+        deleteAttr :function (aid) {
+            $.post(
+                base_url+'/deleteattr',
+                {a:aid},
+                function () {
+                    attreditor.clearAttr();
+                    $.pjax.reload({container:'#attr_list',timeout:2e3});
+                }
+            );
         }
     };
 }();

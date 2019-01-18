@@ -65,4 +65,13 @@ class AttreditorForm extends Model {
         return $arr;
     }
 
+    public function deleteAttribute ($aid) {
+        $res = 1;
+
+        $this->db_conn->createCommand("delete from tg_attributes where aid=:aid")
+            ->bindValue(':aid', $aid)
+            ->execute();
+
+        return  $res;
+    }
 }

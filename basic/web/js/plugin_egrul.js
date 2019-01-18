@@ -109,7 +109,16 @@ var plugin_egrul = function(){
                 __clearFields();
                 __loadScriptforTemplate($(obj).data('tid'));
             });
+        },
+        newScript : function () {
+            $('select[name=inn]').val(0);
+            $('select[name=oname]').val(0);
+            $('select[name=addr]').val(0);
+            $('select[name=status]').val(0);
+            $('select[name=ogrn]').val(0);
+            $('select[name=cdata]').val(0);
+            $('select[name=kpp]').val(0);
+            $('select[name=otype]').val(0);
         }
-
     };
 }();
