@@ -36,6 +36,10 @@ class SetupwizardController extends Controller
     }
 
     public function actionIndex() {
+        if ( null === Yii::$app->user->id) {
+            return $this->redirect(['/auth']);
+        }
+
         $model = new SetupwizardForm();
 
         $allTemplates = new ArrayDataProvider([

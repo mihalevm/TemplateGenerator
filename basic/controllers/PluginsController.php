@@ -25,6 +25,10 @@ class PluginsController extends Controller
     }
 
     public function actionIndex() {
+        if ( null === Yii::$app->user->id) {
+            return $this->redirect(['/auth']);
+        }
+
         return $this->render('index',[
         ]);
     }

@@ -38,6 +38,10 @@ class TemplatesController extends Controller
     }
 
     public function actionIndex() {
+        if ( null === Yii::$app->user->id) {
+            return $this->redirect(['/auth']);
+        }
+
         $model = new TemplatesForm();
 
         $allTemplates = new ArrayDataProvider([

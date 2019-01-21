@@ -28,6 +28,27 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $items = [];
+
+    if ( null !== Yii::$app->user->id) {
+        $items = [
+            ['label' => 'Атрибуты', 'url' => ['/attreditor']],
+            ['label' => 'Шаблоны', 'url' => ['/templates']],
+            ['label' => 'Мастер настройки', 'url' => ['/setupwizard']],
+            ['label' => 'Плагины', 'url' => ['/plugins']],
+            '<li>'
+            . Html::beginForm(['/auth/logout'], 'post')
+            . Html::submitButton(
+                'Выход (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>'
+        ];
+    } else {
+        $items = [['label' => 'Login', 'url' => ['/auth']]];
+    }
+
     NavBar::begin([
         'brandLabel' => 'Редактор шаблонов',
         'brandUrl' => Yii::$app->homeUrl,
@@ -37,26 +58,7 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Атрибуты', 'url' => ['/attreditor']],
-            ['label' => 'Шаблоны', 'url' => ['/templates']],
-            ['label' => 'Мастер настройки', 'url' => ['/setupwizard']],
-            ['label' => 'Плагины', 'url' => ['/plugins']],
-/*
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-*/
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>
