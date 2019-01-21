@@ -39,6 +39,7 @@ class TgAsset extends AssetBundle
 
     public $js = [
         '/js/attreditor.js',
+        '/js/doclist.js',
         '/js/vendor/froala/froala_editor.min.js',
         '/js/vendor/froala/froala_editor.pkgd.min.js',
         '/js/vendor/froala/languages/ru.js',

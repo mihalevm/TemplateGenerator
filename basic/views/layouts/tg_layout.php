@@ -36,6 +36,7 @@ AppAsset::register($this);
             ['label' => 'Шаблоны', 'url' => ['/templates']],
             ['label' => 'Мастер настройки', 'url' => ['/setupwizard']],
             ['label' => 'Плагины', 'url' => ['/plugins']],
+            ['label' => 'Документы', 'url' => ['/doclist']],
             '<li>'
             . Html::beginForm(['/auth/logout'], 'post')
             . Html::submitButton(
