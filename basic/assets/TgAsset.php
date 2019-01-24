@@ -27,6 +27,7 @@ class TgAsset extends AssetBundle
         '/css/setupwizard.css',
         '/css/document.css',
         '/css/plugins.css',
+        '/css/doclist.css',
         '/css/vendor/froala/froala_editor.pkgd.min.css',
         '/css/vendor/froala/froala_editor.css',
         '/css/vendor/froala/froala_style.min.css',

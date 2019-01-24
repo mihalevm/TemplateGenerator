@@ -46,3 +46,28 @@
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
+
+.tg-document-main {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    border: dotted 1px lightgrey;
+    padding: 50px;
+}
+
+.tg-document-main label {
+    width: 200px;
+    margin: 10px;
+}
+
+.tg-document-main input, .tg-document-main select {
+    width: 243px;
+    line-height: 2;
+    height: 32px;
+    text-align: right;
+}
+
+.tg-document-main button{
+    margin-top: 5px;
+}

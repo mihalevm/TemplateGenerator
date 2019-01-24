@@ -22,9 +22,20 @@ class DoclistForm extends Model {
     }
 
     public function selectAllDocs (){
-        $arr = $this->db_conn->createCommand("SELECT DISTINCT d.dkey, t.tname, (SELECT MAX(cdate) FROM tg_documents WHERE d.dkey= dkey) AS cdate FROM tg_documents d , tg_templates t WHERE d.tid=t.tid")
+        $arr = $this->db_conn->createCommand("SELECT DISTINCT d.dkey, t.tname, (SELECT email FROM tg_users WHERE d.uid=uid) AS uname ,(SELECT MAX(cdate) FROM tg_documents WHERE d.dkey= dkey) AS cdate FROM tg_documents d , tg_templates t WHERE d.tid=t.tid")
             ->queryAll();
 
         return $arr;
     }
+
+    public function deleteDoc ($id) {
+        $res = 1;
+
+        $this->db_conn->createCommand("delete from tg_documents where dkey=:dkey")
+            ->bindValue(':dkey', $id)
+            ->execute();
+
+        return  $res;
+    }
+
 }

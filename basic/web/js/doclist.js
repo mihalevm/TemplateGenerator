@@ -9,5 +9,14 @@ var doclist = function(){
             }
             return;
         },
+        delete : function (id) {
+            $.post(
+                base_url+'/doclist/delete',
+                {d:id},
+                function () {
+                    $.pjax.reload({container:'#doc_list',timeout:2e3});
+                }
+            );
+        }
     };
 }();

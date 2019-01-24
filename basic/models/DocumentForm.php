@@ -53,14 +53,15 @@ class DocumentForm extends Model {
         return $arr[0]['aid'];
     }
 
-    public function saveDocAttr ($tid, $dkey, $aid, $val) {
+    public function saveDocAttr ($uid, $tid, $dkey, $aid, $val) {
         $aid = $this->getAttributeIdbyKey($aid);
 
-        $this->db_conn->createCommand("insert into tg_documents (dkey, tid, aid, val) values (:dkey, :tid, :aid, :val)")
+        $this->db_conn->createCommand("insert into tg_documents (dkey, tid, aid, val, uid) values (:dkey, :tid, :aid, :val, :uid)")
             ->bindValue(':dkey', $dkey)
             ->bindValue(':tid', $tid)
             ->bindValue(':aid', $aid)
             ->bindValue(':val', $val)
+            ->bindValue(':uid', $uid)
             ->execute();
 
         $arr = $this->db_conn->getLastInsertID();
@@ -139,4 +140,42 @@ class DocumentForm extends Model {
         return $res;
     }
 
+    public function selectAllTemplates (){
+        $arr = $this->db_conn->createCommand("select tid, tname from tg_templates")
+            ->queryAll();
+
+        $arr = ArrayHelper::map($arr,'tid','tname');
+
+        return $arr;
+    }
+
+    public function getUserID ($email, $phone) {
+        $res = 0;
+
+        if ($email !== null) {
+            $arr = $this->db_conn->createCommand("select uid, phone from tg_users where email=:email")
+                ->bindValue(':email', $email)
+                ->queryAll();
+
+            if (intval($arr[0]['uid']) > 0) {
+                $res = $arr[0]['uid'];
+
+                if ($arr[0]['phone'] != $phone) {
+                    $this->db_conn->createCommand("update tg_users set phone=:phone where email=:email")
+                        ->bindValue(':email', $email)
+                        ->bindValue(':phone', $phone)
+                        ->execute();
+                }
+            } else {
+                $this->db_conn->createCommand("insert into tg_users (email, phone) values (:email, :phone)")
+                    ->bindValue(':email', $email)
+                    ->bindValue(':phone', $phone)
+                    ->execute();
+
+                $res = $this->db_conn->getLastInsertID();
+            }
+        }
+
+        return $res;
+    }
 }

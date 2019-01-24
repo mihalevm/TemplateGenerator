@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>
     <?php
-    Pjax::begin(['id' => 'attr_list', 'timeout' => false, 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]);
+    Pjax::begin(['id' => 'doc_list', 'timeout' => false, 'enablePushState' => false, 'clientOptions' => ['method' => 'POST']]);
     echo \yii\grid\GridView::widget([
         'dataProvider' => $allDocs,
         'layout' => "{items}<div align='right'>{pager}</div>",
@@ -28,6 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'format' => 'ntext',
+                'attribute'=>'uname',
+                'label'=>'Email пользователя',
+                'value' => function($data){
+                    return $data['uname'] ? $data['uname'] : '';
+                }
+            ],
+            [
+                'format' => 'ntext',
                 'attribute'=>'tname',
                 'label'=>'Используемый шаблон',
             ],
@@ -40,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Действие',
                 'format' => 'raw',
                 'value' => function($data){
-                    return '<div class="tg-attr-tools" onclick="doclist.preview(`'.$data['dkey'].'`)"><i class="fa fa-search" aria-hidden="true"></i></div>';
+                    return '<div class="tg-doclist-tools" onclick="doclist.preview(`'.$data['dkey'].'`)"><i class="fa fa-search" aria-hidden="true"></i></div><div class="tg-doclist-tools" onclick="doclist.delete(`'.$data['dkey'].'`)"><i class="fa fa-times" aria-hidden="true"></i></div>';
                 }
             ],
         ],

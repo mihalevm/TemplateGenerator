@@ -35,7 +35,7 @@ class DoclistController extends Controller
         $allDocs = new ArrayDataProvider([
             'allModels' => $model->selectAllDocs(),
             'sort' => [
-                'attributes' => ['dkey', 'tname', 'cdate'],
+                'attributes' => ['dkey', 'tname', 'cdate', 'uname'],
             ],
             'pagination' => [
                 'pageSize' => 20,
@@ -48,4 +48,21 @@ class DoclistController extends Controller
             'allDocs' => $allDocs
         ]);
     }
+
+    public function actionDelete(){
+        if ( null === Yii::$app->user->id) {
+            return $this->redirect(['/auth']);
+        }
+
+        $r = Yii::$app->request;
+        $model = new DoclistForm();
+        $res = 0;
+
+        if (null !== $r->post('d')) {
+            $res = $model->deleteDoc($r->post('d'));
+        }
+
+        return $this->_sendJSONAnswer($res);
+    }
+
 }

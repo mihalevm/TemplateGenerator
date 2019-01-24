@@ -32,6 +32,7 @@ AppAsset::register($this);
 
     if ( null !== Yii::$app->user->id) {
         $items = [
+            ['label' => 'На главную', 'url' => ['/document/main']],
             ['label' => 'Атрибуты', 'url' => ['/attreditor']],
             ['label' => 'Шаблоны', 'url' => ['/templates']],
             ['label' => 'Мастер настройки', 'url' => ['/setupwizard']],

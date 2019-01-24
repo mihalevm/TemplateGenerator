@@ -73,6 +73,17 @@ class DocumentController extends Controller
     }
 
 
+    public function actionMain(){
+        $model = new DocumentForm();
+
+        $allTemplates = $model->selectAllTemplates();
+
+        return $this->render('main',[
+            'model' => $model,
+            'allTemplates' => $allTemplates
+        ]);
+    }
+
     public function actionSavedocument() {
         $r = Yii::$app->request;
         $model = new DocumentForm();
@@ -80,13 +91,14 @@ class DocumentController extends Controller
 
         if ( $r->post('t') &&  $r->post('v') ) {
             $dkey = $this->__getGUID();
+            $uid = $model->getUserID($r->post('e'), $r->post('p'));
 
             $values = json_decode($r->post('v'));
 
             $all_attrs = $model->getTemplateAttrs($r->post('t'));
 
             foreach ($values as $item){
-                $model->saveDocAttr($r->post('t'), $dkey, $item->name,  $item->val);
+                $model->saveDocAttr($uid, $r->post('t'), $dkey, $item->name,  $item->val);
                 foreach ($all_attrs as $key => $itattr){
                     if ($key == $item->name) {
                         $all_attrs[$key] = 1;
@@ -96,7 +108,7 @@ class DocumentController extends Controller
 
             foreach ($all_attrs as $key => $itattr){
                 if ($itattr != 1){
-                    $model->saveDocAttr($r->post('t'), $dkey, $key,  '-');
+                    $model->saveDocAttr($uid, $r->post('t'), $dkey, $key,  '-');
                 }
             }
 
