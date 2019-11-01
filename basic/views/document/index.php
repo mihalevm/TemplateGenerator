@@ -29,8 +29,14 @@ $this->title = 'Создание документа';
     for ($step = 1; $step <= $StepCount; $step++) {
         echo "<div id='step-".$step."' class=''>";
         $plg_egrul_bnt = '';
+        $step_desc = NULL;
         foreach ($Master as $StepContent) {
             if (intval($StepContent['step']) == $step) {
+                if ($StepContent['sdesc'] && !$step_desc) {
+                    $step_desc = $step;
+                    echo '<span class="doc_item"><label>Описание</label><label>'.$StepContent['sdesc'].'</label></span><br/>';
+                }
+
                 $plg_egrul_idx = 0;
                 foreach ($plg_egrul as $script_item) {
                     if ($script_item['inn'] == $StepContent['aname']){

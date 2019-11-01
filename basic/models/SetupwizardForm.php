@@ -61,6 +61,12 @@ class SetupwizardForm extends Model {
         return $arr[0]['aid'];
     }
 
+    /**
+     * @param $tid
+     * @param $wizard
+     * @return null|string
+     * @throws \yii\db\Exception
+     */
     public function saveWizard ($tid, $wizard) {
         $res = null;
 
@@ -68,10 +74,21 @@ class SetupwizardForm extends Model {
             ->bindValue(':tid', $tid)
             ->execute();
 
+        $this->db_conn->createCommand("delete from tg_wizard_attr where tid=:tid")
+            ->bindValue(':tid', $tid)
+            ->execute();
+
         $arr_wizard = json_decode($wizard);
+        $step = NULL;
 
         foreach ($arr_wizard as $wizard_item){
-            $this->db_conn->createCommand("insert into tg_wizard (tid, step, pos, attr, req) values (:tid, :step, :pos, :attr, :req)")
+            $this->db_conn->createCommand("insert into tg_wizard (tid, step, pos, attr, req) values (:tid, :step, :pos, :attr, :req)", [
+                ':tid'  => '',
+                ':step' => '',
+                ':pos'  => '',
+                ':attr' => '',
+                ':req'  => ''
+            ])
                 ->bindValue(':tid', $tid)
                 ->bindValue(':step', $wizard_item->s)
                 ->bindValue(':pos', $wizard_item->p)
@@ -81,13 +98,25 @@ class SetupwizardForm extends Model {
 
             $res = $this->db_conn->getLastInsertID();
 
+            if ($step != $wizard_item->s) {
+                $step = $wizard_item->s;
+                $this->db_conn->createCommand("insert into tg_wizard_attr (tid, step, sdesc) values (:tid, :step, :sdesc)", [
+                    ':tid' => '',
+                    ':step' => '',
+                    ':sdesc' => NULL
+                ])
+                    ->bindValue(':tid', $tid)
+                    ->bindValue(':step', $wizard_item->s)
+                    ->bindValue(':sdesc', $wizard_item->d)
+                    ->execute();
+            }
         }
 
         return $res;
     }
 
     public function getWizard ($tid){
-        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, a.adesc, w.req from tg_wizard w, tg_attributes a where w.attr=a.aid and w.tid=:tid order by w.step, w.pos")
+        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, a.adesc, w.req, wa.sdesc from tg_wizard w, tg_attributes a, tg_wizard_attr wa where w.attr=a.aid AND w.tid=wa.tid AND w.step = wa.step and w.tid=7 order by w.step, w.pos")
             ->bindValue(':tid', $tid)
             ->queryAll();
 

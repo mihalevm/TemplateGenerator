@@ -19,7 +19,7 @@ var setupwizard = function(){
     return {
         addStep : function(){
             $(wizard_tree)
-                .append('<tr class="treegrid-'+node_idx+'"><td>Шаг '+root_node_idx+'</td><td><div class="tg-wizard-tree-control"><i class="fa fa-times" aria-hidden="true"></div></td></tr>');
+                .append('<tr class="treegrid-'+node_idx+'"><td>Шаг '+root_node_idx+'</td><td><label style="font-weight: initial;">Описание <input style="line-height: initial;"  name="step-desc-'+root_node_idx+'" type="text"/></label></td><td><div class="tg-wizard-tree-control"><i class="fa fa-times" aria-hidden="true"></div></td></tr>');
 
             var node_item = node_idx;
 
@@ -84,7 +84,8 @@ var setupwizard = function(){
                         root_is_empty = false;
                         var values = $(childNodes[child]).find('td');
                         var req = ($(values[2]).find('input:first')[0].checked?1:0);
-                        save_data.push({s:rootIdx, p:child+1, v:$(values[0]).text(), r:req});
+                        var sdesc = $('input[name=step-desc-'+rootIdx+']').val();
+                        save_data.push({s:rootIdx, p:child+1, v:$(values[0]).text(), r:req, d:sdesc});
                     }
                 });
 
@@ -118,6 +119,8 @@ var setupwizard = function(){
 
                             $(selector[wizard[it].step-1]).val(wizard[it].aname);
                             $(bnt[wizard[it].step-1]).click();
+
+                            $('input[name=step-desc-'+wizard[it].step+']').val(wizard[it].sdesc);
 
                             if(parseInt(wizard[it].req) == 1) {
                                 $($('.treegrid-' + (node_idx - 1)).find('input:checkbox:first')[0]).prop('checked', true);
