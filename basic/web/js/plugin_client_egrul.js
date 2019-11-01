@@ -14,31 +14,31 @@ var plugin_client_egrul = function(){
                                 //     $(inp).val(data.INN);
                                 // }
                                 if (elements.addr == $(inp).prop('name')) {
-                                    $(inp).val(data.ADR_TEXT);
+                                    $(inp).val(data.a);
                                 }
                                 if (elements.cdata == $(inp).prop('name')) {
-                                    $(inp).val(data.DTREG);
+                                    $(inp).val(data.r);
                                 }
                                 if (elements.kpp == $(inp).prop('name')) {
-                                    $(inp).val(data.KPP);
+                                    $(inp).val(data.p);
                                 }
                                 if (elements.ogrn == $(inp).prop('name')) {
-                                    $(inp).val(data.OGRN);
+                                    $(inp).val(data.o);
                                 }
                                 if (elements.oname == $(inp).prop('name')) {
-                                    $(inp).val(data.NAME);
+                                    $(inp).val(data.c);
                                 }
                                 if (elements.otype == $(inp).prop('name')) {
-                                    $(inp).val(data.kind);
+                                    $(inp).val(data.k);
                                 }
                                 if (elements.status == $(inp).prop('name')) {
-                                    $(inp).val(data.DOLGNS);
+                                    $(inp).val(data.g);
                                 }
                             });
 
                             $('#step-' + step).find('select').each(function (i, inp) {
                                 if (elements.otype == $(inp).prop('name')) {
-                                    $(inp).val((data.kind === 'ul'?'Юридическое лицо':'Физическое лицо'));
+                                    $(inp).val((data.k === 'ul'?'Юридическое лицо':'Физическое лицо'));
                                 }
                             });
 
