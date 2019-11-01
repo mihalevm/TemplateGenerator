@@ -116,7 +116,7 @@ class SetupwizardForm extends Model {
     }
 
     public function getWizard ($tid){
-        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, a.adesc, w.req, wa.sdesc from tg_wizard w, tg_attributes a, tg_wizard_attr wa where w.attr=a.aid AND w.tid=wa.tid AND w.step = wa.step and w.tid=7 order by w.step, w.pos")
+        $arr = $this->db_conn->createCommand("select w.step, w.pos, a.aname, a.adesc, w.req, wa.sdesc from tg_wizard w, tg_attributes a, tg_wizard_attr wa where w.attr=a.aid AND w.tid=wa.tid AND w.step = wa.step and w.tid=:tid order by w.step, w.pos")
             ->bindValue(':tid', $tid)
             ->queryAll();
 
