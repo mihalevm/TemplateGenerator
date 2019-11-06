@@ -48,6 +48,11 @@ $this->title = 'Создание документа';
 
                 $required = ($StepContent['req']?'required=""':'');
 
+                if ($StepContent['ttype'] == 'TTABLE'){
+                    echo '<br/>';
+                    echo '<span class="doc_item" name="'.$StepContent['aname'].'"><label>'.$StepContent['title'].'</label>'.preg_replace('/{(v\d+)}/', "<input style='width: 90%;' type='text' name='$1' ".$required." data-type='table' >", $StepContent['test']).'</span>';
+                    echo '<br/>';
+                }
                 if ($StepContent['ttype'] == 'TINPUT'){
                     echo '<span class="doc_item"><label>'.$StepContent['title'].'</label><input type="text" name="'.$StepContent['aname'].'" '.$required.' ></span>';
                     echo $plg_egrul_bnt;

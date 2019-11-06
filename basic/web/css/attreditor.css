@@ -14,13 +14,22 @@
     width: 140px;
     line-height: 2;
     text-align: left;
+    vertical-align: top;
 }
 
-.tg-edit-fields input, .tg-edit-fields select {
-    line-height: 2;
+.tg-edit-fields input, .tg-edit-fields select, .tg-edit-fields textarea {
+    line-height: 1.2;
     text-align: right;
     height: 32px;
     width: 290px;
+    min-height: 32px;
+    min-width: 290px;
+    max-width: 680px;
+    max-height: 480px;
+}
+
+.tg-edit-fields textarea {
+    text-align: initial;
 }
 
 .tg-edit-control {

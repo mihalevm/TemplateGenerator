@@ -132,6 +132,20 @@ class DocumentController extends Controller
                     $attr_it['val'] = ($attr_it['val']?'Да':'Нет');
                 }
 
+                if ($attr_it['ttype'] == 'TTABLE'){
+                    $table_vars = [];
+                    foreach (explode(';', $attr_it['val']) as $pair) {
+                        list($key, $val) = explode(':', $pair);
+                        $table_vars[$key] = $val;
+                    }
+
+                    foreach ($table_vars as $key => $val) {
+                        $attr_it['test'] = preg_replace('/{'.$key.'}/', $val, $attr_it['test']);
+                    }
+
+                    $attr_it['val'] = $attr_it['test'];
+                }
+
                 $html_template = str_replace('{'.$attr_it['aname'].'}', $attr_it['val'], $html_template);
             }
 

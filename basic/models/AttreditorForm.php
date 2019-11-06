@@ -59,7 +59,7 @@ class AttreditorForm extends Model {
     }
 
     public function selectAllAttributes (){
-        $arr = $this->db_conn->createCommand("select a.aid, a.aname, t.tname, a.atype, a.adesc, a.title, a.test from tg_attributes a, tg_attributes_type t where a.atype = t.tid")
+        $arr = $this->db_conn->createCommand("select a.aid, a.aname, t.tname, t.ttype, a.atype, a.adesc, a.title, a.test from tg_attributes a, tg_attributes_type t where a.atype = t.tid")
             ->queryAll();
 
         return $arr;

@@ -19,7 +19,7 @@ var documentGen = function(){
                     masterData.push({name:$(values[it]).attr('name'), val:$(values[it]).val()});
                 } else if ($(values[it]).attr('type') == 'checkbox') {
                     masterData.push({name:$(values[it]).attr('name'), val:($(values[it]).val().toLowerCase() == 'on' ? 1:0)});
-                } else if ($(values[it]).attr('type') == 'text') {
+                } else if ($(values[it]).attr('type') == 'text' && !$(values[it]).data('type')) {
                     masterData.push({name:$(values[it]).attr('name'), val:$(values[it]).val()});
                 }
             });
@@ -32,6 +32,22 @@ var documentGen = function(){
             values = $('#docMasterHolder').find('select');
             $(values).each(function (it) {
                 masterData.push({name:$(values[it]).attr('name'), val:$(values[it]).val()});
+            });
+
+            values = $('#docMasterHolder').find('table');
+            var var_name = null;
+            $(values).each(function (it) {
+                if ( $(values[it]).parent().attr('name') ) {
+                    var_name = $(values[it]).parent().attr('name');
+                    var input_fields = $(values[it]).find('input');
+                    var input_field_pairs = '';
+                    $(input_fields).each(function (inp_f) {
+                        input_field_pairs = input_field_pairs+$(input_fields[inp_f]).attr('name')+':'+$(input_fields[inp_f]).val()+';';
+                    });
+                    if (input_field_pairs) {
+                        masterData.push({name:var_name, val:input_field_pairs});
+                    }
+                }
             });
 
             $.post(base_url+'/savedocument', {t:$('input[name=tid]').val(), v:JSON.stringify(masterData), e:getCookie('email'), p:getCookie('phone')}, function (key) {

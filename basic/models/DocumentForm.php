@@ -78,7 +78,7 @@ class DocumentForm extends Model {
     }
 
     public function getDocumentVars ($dkey) {
-        $arr = $this->db_conn->createCommand("select a.aname, d.val, t.ttype from tg_attributes a, tg_documents d, tg_attributes_type t where a.atype=t.tid and a.aid=d.aid and d.dkey=:dkey")
+        $arr = $this->db_conn->createCommand("select a.aname, a.test, d.val, t.ttype from tg_attributes a, tg_documents d, tg_attributes_type t where a.atype=t.tid and a.aid=d.aid and d.dkey=:dkey")
             ->bindValue(':dkey', $dkey)
             ->queryAll();
 

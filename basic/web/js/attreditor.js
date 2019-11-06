@@ -8,7 +8,7 @@ var attreditor = function(){
                 d: $('input[name=adesc]').val(),
                 ty: $('select[name=atype]').val(),
                 ti: $('input[name=atitle]').val(),
-                te: $('input[name=atest]').val(),
+                te: $('textarea[name=atest]').val(),
             }, function (data) {
                 // data = JSON.parse(data);
                 // console.log(data.status);
@@ -25,7 +25,7 @@ var attreditor = function(){
                 d:  $('input[name=adesc]').val(),
                 ty: $('select[name=atype]').val(),
                 ti: $('input[name=atitle]').val(),
-                te: $('input[name=atest]').val(),
+                te: $('textarea[name=atest]').val(),
             }, function (data) {
                 $.pjax.reload({container:'#attr_list',timeout:2e3});
             });
@@ -47,7 +47,7 @@ var attreditor = function(){
             $('input[name=adesc]').val(null);
             $('select[name=atype]').val(1);
             $('input[name=atitle]').val(null);
-            $('input[name=atest]').val(null);
+            $('textarea[name=atest]').val(null);
             $('input[name=aid]').val(null);
         },
         setActiveItem : function (obj) {
@@ -58,7 +58,7 @@ var attreditor = function(){
             $('input[name=adesc]').val($(obj).data('adesc'));
             $('select[name=atype]').val($(obj).data('atype'));
             $('input[name=atitle]').val($(obj).data('title'));
-            $('input[name=atest]').val($(obj).data('test'));
+            $('textarea[name=atest]').val($(obj).data('test'));
             $('input[name=aid]').val($(obj).data('aid'));
 
         },

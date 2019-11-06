@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <label>Описание: </label> <?= Html::textInput('adesc', null, ['placeholder' => 'Описание переменной']); ?><br/>
     <label>Тип: </label> <?= Html::dropDownList('atype', null, $allAtributeType) ?><br/>
     <label>Имя: </label> <?= Html::textInput('atitle', null, ['placeholder' => 'Отображаемое имя']); ?><br/>
-    <label>Тестовые данные: </label> <?= Html::textInput('atest', null, ['placeholder' => 'Тестовые данные']); ?><br/>
+    <label>Тестовые данные: </label> <?= Html::textarea('atest', null, ['placeholder' => 'Тестовые данные']); ?><br/>
 
     <div class="tg-edit-control">
 <?php
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             return [
                 'class'      => $index&1 ? 'tg-attr-item-one':'tg-attr-item-two',
                 'data-aid'   => $model['aid'],
-                'data-atype'   => $model['atype'],
+                'data-atype' => $model['atype'],
                 'data-aname' => $model['aname'],
                 'data-adesc' => $model['adesc'],
                 'data-title' => $model['title'],
@@ -88,6 +88,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'ntext',
                 'attribute'=>'test',
                 'label'=>'Тестовое значение',
+                'value'=> function ($data) {
+                    return ($data['ttype'] == 'TTABLE'?'Шаблон таблицы':$data['test']);
+                }
             ],
             [
                 'label' => 'Действие',
